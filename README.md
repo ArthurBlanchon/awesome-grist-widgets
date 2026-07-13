@@ -6,6 +6,12 @@ A curated collection of custom widgets for **Grist**.
 
 - [Advanced Charts - by @gristlabs](https://github.com/gristlabs/custom-charts-widget): Interactive Plotly-powered charting widget for creating rich visualizations directly in Grist.
 
+## 📋 Kanban & Project Management
+
+- [Ultra Kanban Widget - by @opocola](https://github.com/opocola/ultra-kanban-widget): Advanced Kanban board experience for managing Grist records visually.
+
+- [Grist Custom Widget Kanban - by @salmanmkc](https://github.com/salmanmkc/Grist-Custom-Widget-Kanban): Kanban-style custom widget for organizing records by workflow state.
+
 ## 📝 Record Views & Data Exploration
 
 - [Grist Widget Examples - by @gristlabs](https://github.com/gristlabs/grist-widget): Official reference implementations and examples for building custom Grist widgets.
