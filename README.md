@@ -1,8 +1,6 @@
 # Awesome Grist Widgets
 
-A curated collection of high-quality custom widgets for **Grist**.
-
-Discover production-ready widgets, developer tools, and community projects built for the Grist ecosystem.
+A curated collection of custom widgets for **Grist**.
 
 ## 📊 Charts & Data Visualization
 
