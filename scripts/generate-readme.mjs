@@ -21,15 +21,6 @@ const README_PATH = path.join(ROOT, "README.md");
 const START_MARKER = "<!-- WIDGETS:START -->";
 const END_MARKER = "<!-- WIDGETS:END -->";
 
-// Fixed emoji per category, purely cosmetic. Add a new line here when a
-// new category is introduced in widgets.json.
-const CATEGORY_EMOJI = {
-  "Charts & Data Visualization": "📊",
-  "Kanban & Project Management": "📋",
-  "Developer Tools": "🧰",
-  "Specialized Widgets": "🏛️",
-};
-
 function loadWidgets() {
   const raw = JSON.parse(readFileSync(WIDGETS_PATH, "utf8"));
 
@@ -39,7 +30,7 @@ function loadWidgets() {
 
   const seenIds = new Set();
   const seenRepoUrls = new Set();
-  const requiredFields = ["id", "name", "repoUrl", "author", "description", "category"];
+  const requiredFields = ["id", "name", "repoUrl", "widgetUrl", "author", "description"];
 
   for (const widget of raw) {
     for (const field of requiredFields) {
@@ -62,32 +53,31 @@ function loadWidgets() {
   return raw;
 }
 
-function groupByCategory(widgets) {
+function groupByAuthor(widgets) {
   const groups = new Map();
   for (const widget of widgets) {
-    if (!groups.has(widget.category)) {
-      groups.set(widget.category, []);
+    if (!groups.has(widget.author)) {
+      groups.set(widget.author, []);
     }
-    groups.get(widget.category).push(widget);
+    groups.get(widget.author).push(widget);
   }
   return groups;
 }
 
 function renderWidgetsSection(widgets) {
-  const groups = groupByCategory(widgets);
-  const categories = [...groups.keys()].sort((a, b) => a.localeCompare(b));
+  const groups = groupByAuthor(widgets);
+  const authors = [...groups.keys()].sort((a, b) => a.localeCompare(b));
 
-  const sections = categories.map((category) => {
-    const emoji = CATEGORY_EMOJI[category] ?? "🧩";
+  const sections = authors.map((author) => {
     const entries = groups
-      .get(category)
+      .get(author)
       .sort((a, b) => a.name.localeCompare(b.name))
       .map(
         (w) =>
-          `- [${w.name} - by ${w.author}](${w.repoUrl}): ${w.description}`
+          `- [${w.name}](${w.repoUrl}) — ${w.description} ([install](${w.widgetUrl}))`
       )
       .join("\n\n");
-    return `## ${emoji} ${category}\n\n${entries}`;
+    return `## ${author}\n\n${entries}`;
   });
 
   return sections.join("\n\n");

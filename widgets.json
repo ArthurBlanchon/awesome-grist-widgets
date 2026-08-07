@@ -3,40 +3,40 @@
     "id": "gristlabs/custom-charts-widget",
     "name": "Advanced Charts",
     "repoUrl": "https://github.com/gristlabs/custom-charts-widget",
+    "widgetUrl": "https://gristlabs.github.io/custom-charts-widget/",
     "author": "Grist Labs",
-    "description": "Interactive Plotly-powered charting widget for creating rich visualizations directly in Grist.",
-    "category": "Charts & Data Visualization"
+    "description": "Interactive Plotly-powered charting widget for creating rich visualizations directly in Grist."
   },
   {
     "id": "opocola/ultra-kanban-widget",
     "name": "Ultra Kanban Widget",
     "repoUrl": "https://github.com/opocola/ultra-kanban-widget",
+    "widgetUrl": "https://opocola.github.io/ultra-kanban-widget/",
     "author": "opocola",
-    "description": "Advanced Kanban board experience for managing Grist records visually.",
-    "category": "Kanban & Project Management"
+    "description": "Advanced Kanban board experience for managing Grist records visually."
   },
   {
     "id": "salmanmkc/Grist-Custom-Widget-Kanban",
     "name": "Grist Custom Widget Kanban",
     "repoUrl": "https://github.com/salmanmkc/Grist-Custom-Widget-Kanban",
+    "widgetUrl": "https://dycazo-by-fastcube.github.io/Grist-Custom-Widget-Kanban/",
     "author": "salmanmkc",
-    "description": "Kanban-style custom widget for organizing records by workflow state.",
-    "category": "Kanban & Project Management"
+    "description": "Kanban-style custom widget for organizing records by workflow state."
   },
   {
     "id": "gristlabs/grist-widget",
     "name": "Grist Widget Examples",
     "repoUrl": "https://github.com/gristlabs/grist-widget",
+    "widgetUrl": "https://gristlabs.github.io/grist-widget/",
     "author": "Grist Labs",
-    "description": "Official reference implementations and examples for building custom Grist widgets, including record views and invoice-style layouts.",
-    "category": "Developer Tools"
+    "description": "Official reference implementations and examples for building custom Grist widgets, including record views and invoice-style layouts."
   },
   {
     "id": "betagouv/grist-custom-widgets-fr-admin",
     "name": "Grist Custom Widgets FR Admin",
     "repoUrl": "https://github.com/betagouv/grist-custom-widgets-fr-admin",
+    "widgetUrl": "https://betagouv.github.io/grist-custom-widgets-fr-admin/",
     "author": "beta.gouv.fr",
-    "description": "Collection of widgets developed for French administration workflows.",
-    "category": "Specialized Widgets"
+    "description": "Collection of widgets developed for French administration workflows."
   }
 ]

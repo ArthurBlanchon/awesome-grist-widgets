@@ -11,11 +11,13 @@ This repository is both a browsable "awesome list" and the data source for the w
      "id": "owner/repo",
      "name": "Widget Name",
      "repoUrl": "https://github.com/owner/repo",
+     "widgetUrl": "https://owner.github.io/repo/",
      "author": "Author or org name",
-     "description": "One sentence describing what the widget does.",
-     "category": "One of the existing categories (see widgets.json), or a new one"
+     "description": "One sentence describing what the widget does."
    }
    ```
+
+   `widgetUrl` is the URL a user pastes into Grist's "Custom Widget" install field (usually GitHub Pages) — not the GitHub repo link. `repoUrl` is the source code. Widgets in the README are grouped by `author`.
 
 2. Run:
 
