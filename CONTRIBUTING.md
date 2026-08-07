@@ -19,6 +19,8 @@ This repository is both a browsable "awesome list" and the data source for the w
 
    `widgetUrl` is the URL a user pastes into Grist's "Custom Widget" install field (usually GitHub Pages) — not the GitHub repo link. `repoUrl` is the source code. Widgets in the README are grouped by `author`.
 
+   **Never invent `widgetUrl`.** Only use it if the target repo's own README/`package.json`/`manifest.json` explicitly documents an install URL. If it doesn't, set `"widgetUrl": null` — don't guess a `owner.github.io/repo/`-style URL and present it as real.
+
 2. Run:
 
    ```sh
@@ -42,3 +44,10 @@ This repository is both a browsable "awesome list" and the data source for the w
 Edit its entry in `widgets.json`, regenerate the README, and open a PR — same as adding one.
 
 Please don't hand-edit the widget list inside the `<!-- WIDGETS:START -->` / `<!-- WIDGETS:END -->` markers in `README.md`; it's overwritten by the generator.
+
+## Using a coding agent to add widgets
+
+See [`AGENTS.md`](./AGENTS.md) for a process a coding agent can follow
+end-to-end — including the full schema and the rule against invented URLs.
+A Claude Code-specific version of the same steps lives at
+[`.claude/skills/add-widget/SKILL.md`](./.claude/skills/add-widget/SKILL.md).

@@ -30,15 +30,23 @@ function loadWidgets() {
 
   const seenIds = new Set();
   const seenRepoUrls = new Set();
-  const requiredFields = ["id", "name", "repoUrl", "widgetUrl", "author", "description"];
+  // widgetUrl is intentionally excluded here: it must be `null` (not a
+  // fabricated guess) when a repo doesn't explicitly document its
+  // install URL. See the "widgetUrl" note below and AGENTS.md.
+  const requiredStringFields = ["id", "name", "repoUrl", "author", "description"];
 
   for (const widget of raw) {
-    for (const field of requiredFields) {
+    for (const field of requiredStringFields) {
       if (!widget[field] || typeof widget[field] !== "string") {
         throw new Error(
           `Widget entry ${JSON.stringify(widget)} is missing required string field "${field}".`
         );
       }
+    }
+    if (!("widgetUrl" in widget) || (widget.widgetUrl !== null && typeof widget.widgetUrl !== "string")) {
+      throw new Error(
+        `Widget entry ${JSON.stringify(widget)} must have "widgetUrl" as a string or null (use null, never a guessed URL, when the repo doesn't explicitly document an install URL).`
+      );
     }
     if (seenIds.has(widget.id)) {
       throw new Error(`Duplicate widget id: ${widget.id}`);
@@ -72,10 +80,12 @@ function renderWidgetsSection(widgets) {
     const entries = groups
       .get(author)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map(
-        (w) =>
-          `- [${w.name}](${w.repoUrl}) — ${w.description} ([install](${w.widgetUrl}))`
-      )
+      .map((w) => {
+        const install = w.widgetUrl
+          ? ` ([install](${w.widgetUrl}))`
+          : " (install URL not documented — see repo)";
+        return `- [${w.name}](${w.repoUrl}) — ${w.description}${install}`;
+      })
       .join("\n\n");
     return `## ${author}\n\n${entries}`;
   });

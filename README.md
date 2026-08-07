@@ -18,7 +18,7 @@ This list is also published as structured data in [`widgets.json`](./widgets.jso
 
 ## opocola
 
-- [Ultra Kanban Widget](https://github.com/opocola/ultra-kanban-widget) — Advanced Kanban board experience for managing Grist records visually. ([install](https://opocola.github.io/ultra-kanban-widget/))
+- [Ultra Kanban Widget](https://github.com/opocola/ultra-kanban-widget) — Advanced Kanban board experience for managing Grist records visually. (install URL not documented — see repo)
 
 ## salmanmkc
 
@@ -39,6 +39,9 @@ To add a widget:
 1. Add an entry to `widgets.json` with `id` (`owner/repo`), `name`, `repoUrl`, `widgetUrl` (the URL to paste into Grist's "Custom Widget" install field), `author`, and `description`.
 2. Run `npm run generate-readme` and commit the resulting `README.md` change alongside `widgets.json`.
 3. Open a pull request. CI checks that `README.md` matches `widgets.json`.
+
+Coding agents can do this end-to-end — see [`AGENTS.md`](./AGENTS.md) for the
+full process and rules (most importantly: never invent a `widgetUrl`).
 
 Widgets should have:
 

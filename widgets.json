@@ -11,7 +11,7 @@
     "id": "opocola/ultra-kanban-widget",
     "name": "Ultra Kanban Widget",
     "repoUrl": "https://github.com/opocola/ultra-kanban-widget",
-    "widgetUrl": "https://opocola.github.io/ultra-kanban-widget/",
+    "widgetUrl": null,
     "author": "opocola",
     "description": "Advanced Kanban board experience for managing Grist records visually."
   },
