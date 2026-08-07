@@ -11,12 +11,14 @@ step-by-step version of the same process.
 
 ## The one rule that matters most
 
-**Never invent a `widgetUrl`.** It must come from something explicit in the
-target repo (README, `package.json` homepage, `manifest.json`, a linked demo
-site). If the repo doesn't document its install URL, set `"widgetUrl": null`
-— do not guess a `owner.github.io/repo/`-style URL and pass it off as real.
-A wrong repo link is annoying; a wrong widget install URL is something a
-user pastes straight into their Grist document.
+**Never invent a `widgetUrl`, and never add a widget without one.** It must
+come from something explicit in the target repo (README, `package.json`
+homepage, `manifest.json`, a linked demo site) — do not guess a
+`owner.github.io/repo/`-style URL and pass it off as real. If the repo
+doesn't document an install URL, the widget isn't eligible for this
+registry yet; skip it and say so, don't add a placeholder. A wrong repo
+link is annoying; a wrong (or missing) widget install URL is something a
+user needs to actually paste into their Grist document.
 
 ## Steps
 
@@ -30,13 +32,15 @@ For each widget repo you're asked to add:
 2. **Extract**: `name`, one-sentence `description` (in the project's own
    words, condensed), `repoUrl` (bare `https://github.com/owner/repo`, no
    subpaths — this is the unique identifier and also where `author` gets
-   derived from, so don't add an `author` field), and `widgetUrl` if — and
-   only if — explicitly documented.
+   derived from, so don't add an `author` field), and `widgetUrl` — but only
+   if it's explicitly documented. **If it isn't, stop here for this widget**:
+   don't add it, and mention in your response that it's a candidate pending
+   a documented install URL.
 3. **Check `widgets.json` for an existing entry** with the same `repoUrl`
    (the unique key). Skip or update instead of duplicating.
 4. **Append the entry** to the JSON array in `widgets.json` — all four
-   fields (`name`, `repoUrl`, `widgetUrl`, `description`) required on every
-   entry, per the schema in `AGENTS.md`.
+   fields (`name`, `repoUrl`, `widgetUrl`, `description`) required and
+   non-null on every entry, per the schema in `AGENTS.md`.
 5. **Regenerate and validate**:
    ```sh
    npm run generate-readme
@@ -45,12 +49,12 @@ For each widget repo you're asked to add:
    ```
 6. **Commit** `widgets.json` and the regenerated `README.md` together, on a
    new branch (don't commit to `main`).
-7. **Open a PR.** In the body, list every widget added, note its
-   qualification checks, and call out any entry left with `widgetUrl: null`
-   so a human knows to verify and fill it in.
+7. **Open a PR.** In the body, list every widget added, its qualification
+   checks, and where its `widgetUrl` was sourced from (link or quote it).
 
 ## Batching
 
 Adding several widgets in one session? Do steps 1–4 for each, then run
 step 5's validation once at the end before committing. One PR, one summary
-listing all additions.
+listing all additions — plus a separate note for any candidates skipped for
+lacking a documented install URL.

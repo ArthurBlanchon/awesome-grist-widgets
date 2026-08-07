@@ -6,12 +6,6 @@
     "description": "Interactive Plotly-powered charting widget for creating rich visualizations directly in Grist."
   },
   {
-    "name": "Ultra Kanban Widget",
-    "repoUrl": "https://github.com/opocola/ultra-kanban-widget",
-    "widgetUrl": null,
-    "description": "Advanced Kanban board experience for managing Grist records visually."
-  },
-  {
     "name": "Grist Custom Widget Kanban",
     "repoUrl": "https://github.com/salmanmkc/Grist-Custom-Widget-Kanban",
     "widgetUrl": "https://dycazo-by-fastcube.github.io/Grist-Custom-Widget-Kanban/",

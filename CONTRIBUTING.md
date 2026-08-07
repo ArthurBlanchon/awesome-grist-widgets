@@ -19,7 +19,7 @@ This repository is both a browsable "awesome list" and the data source for the w
 
    - `repoUrl` is the widget's **unique identifier** (there's no separate `id` field). It must be a bare `https://github.com/<owner>/<repo>` URL, no subpaths — the `<owner>` segment is also what the README groups widgets by (there's no `author` field either; it's derived from this URL).
    - `widgetUrl` is the URL a user pastes into Grist's "Custom Widget" install field (usually GitHub Pages) — not the GitHub repo link.
-     **Never invent it.** Only use it if the target repo's own README/`package.json`/`manifest.json` explicitly documents an install URL. If it doesn't, set `"widgetUrl": null` — don't guess a `owner.github.io/repo/`-style URL and present it as real. (The field is still required — always include the key, with `null` as its value when there's nothing documented.)
+     **Never invent it, and never leave it null.** Only add a widget if the target repo's own README/`package.json`/`manifest.json` explicitly documents an install URL — don't guess a `owner.github.io/repo/`-style URL and present it as real. If a repo doesn't document one, it isn't eligible for the registry yet; don't add it (or open an issue instead, so it can be added once it does).
 
 2. Run:
 

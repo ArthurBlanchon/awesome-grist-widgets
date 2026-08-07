@@ -16,10 +16,6 @@ This list is also published as structured data in [`widgets.json`](./widgets.jso
 
 - [Grist Widget Examples](https://github.com/gristlabs/grist-widget) — Official reference implementations and examples for building custom Grist widgets, including record views and invoice-style layouts. ([install](https://gristlabs.github.io/grist-widget/))
 
-## opocola
-
-- [Ultra Kanban Widget](https://github.com/opocola/ultra-kanban-widget) — Advanced Kanban board experience for managing Grist records visually. (install URL not documented — see repo)
-
 ## salmanmkc
 
 - [Grist Custom Widget Kanban](https://github.com/salmanmkc/Grist-Custom-Widget-Kanban) — Kanban-style custom widget for organizing records by workflow state. ([install](https://dycazo-by-fastcube.github.io/Grist-Custom-Widget-Kanban/))
@@ -36,7 +32,7 @@ Widgets are tracked as data in [`widgets.json`](./widgets.json) — this README 
 
 To add a widget:
 
-1. Add an entry to `widgets.json` with `name`, `repoUrl` (the widget's unique identifier — a bare `https://github.com/<owner>/<repo>` URL), `widgetUrl` (the URL to paste into Grist's "Custom Widget" install field, or `null` if the repo doesn't document one), and `description`. All fields are required on every entry. There's no `author` field — it's derived from the `<owner>` in `repoUrl`, which is also how the list below is grouped.
+1. Add an entry to `widgets.json` with `name`, `repoUrl` (the widget's unique identifier — a bare `https://github.com/<owner>/<repo>` URL), `widgetUrl` (the URL to paste into Grist's "Custom Widget" install field), and `description`. All fields are required on every entry — `widgetUrl` must be an install URL the target repo explicitly documents; if it doesn't document one, the widget isn't eligible yet. There's no `author` field — it's derived from the `<owner>` in `repoUrl`, which is also how the list below is grouped.
 2. Run `npm run generate-readme` and commit the resulting `README.md` change alongside `widgets.json`.
 3. Open a pull request. CI checks that `README.md` matches `widgets.json`.
 

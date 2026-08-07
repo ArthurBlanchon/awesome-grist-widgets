@@ -46,12 +46,11 @@ function loadWidgets() {
 
   const seenRepoUrls = new Set();
   const seenWidgetUrls = new Set();
-  // Every field below is required on every entry — there are no optional
-  // fields. widgetUrl is the one exception to "required means a non-empty
-  // string": it must be present, but its value is `null` when the repo
-  // doesn't explicitly document an install URL (never a guessed one — see
-  // AGENTS.md).
-  const requiredStringFields = ["name", "repoUrl", "description"];
+  // Every field is required and non-null on every entry. widgetUrl must be
+  // an explicitly documented install URL (see AGENTS.md) — a widget with no
+  // documented install URL doesn't get an entry here at all, rather than a
+  // null placeholder.
+  const requiredStringFields = ["name", "repoUrl", "widgetUrl", "description"];
 
   for (const widget of raw) {
     for (const field of requiredStringFields) {
@@ -60,11 +59,6 @@ function loadWidgets() {
           `Widget entry ${JSON.stringify(widget)} is missing required string field "${field}".`
         );
       }
-    }
-    if (!("widgetUrl" in widget) || (widget.widgetUrl !== null && typeof widget.widgetUrl !== "string")) {
-      throw new Error(
-        `Widget entry ${JSON.stringify(widget)} must have "widgetUrl" as a string or null (use null, never a guessed URL, when the repo doesn't explicitly document an install URL).`
-      );
     }
 
     // Validates the repoUrl shape and, as a side effect, that we can derive
@@ -76,14 +70,10 @@ function loadWidgets() {
     }
     seenRepoUrls.add(widget.repoUrl);
 
-    // Only non-null widgetUrls need to be unique — multiple entries are
-    // allowed to have an undocumented (null) install URL.
-    if (widget.widgetUrl !== null) {
-      if (seenWidgetUrls.has(widget.widgetUrl)) {
-        throw new Error(`Duplicate widgetUrl: ${widget.widgetUrl}`);
-      }
-      seenWidgetUrls.add(widget.widgetUrl);
+    if (seenWidgetUrls.has(widget.widgetUrl)) {
+      throw new Error(`Duplicate widgetUrl: ${widget.widgetUrl}`);
     }
+    seenWidgetUrls.add(widget.widgetUrl);
   }
 
   return raw;
@@ -109,12 +99,9 @@ function renderWidgetsSection(widgets) {
     const entries = groups
       .get(author)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map((w) => {
-        const install = w.widgetUrl
-          ? ` ([install](${w.widgetUrl}))`
-          : " (install URL not documented — see repo)";
-        return `- [${w.name}](${w.repoUrl}) — ${w.description}${install}`;
-      })
+      .map(
+        (w) => `- [${w.name}](${w.repoUrl}) — ${w.description} ([install](${w.widgetUrl}))`
+      )
       .join("\n\n");
     return `## ${author}\n\n${entries}`;
   });

@@ -21,9 +21,10 @@ Do **not**:
 - Assume `repoUrl` and `widgetUrl` are the same.
 - Copy a URL from a similarly-named project.
 
-If a repo does not explicitly document its install URL, set `widgetUrl` to
-JSON `null`. Do not leave the field out and do not fill it with a guess. Say
-so plainly in the PR description so a human can verify and fill it in.
+If a repo does not explicitly document its install URL, **the widget is not
+eligible for this registry yet** — do not add it, and do not use `null` as a
+placeholder. Say so in your response instead of opening a PR for it (or open
+an issue proposing it once the maintainer documents an install URL).
 
 This rule exists because a wrong `repoUrl` just annoys a browsing human, but
 a wrong `widgetUrl` is a URL that gets pasted directly into someone's Grist
@@ -52,10 +53,10 @@ Field notes:
   used directly as the widget's author — there is no separate `author`
   field either, and no free text to keep consistent: it's derived, so it's
   always correct and always groups correctly in the generated README.
-- `widgetUrl`: required key, but its value is a string **or `null`** — never
-  omit the key itself. String if explicitly documented by the target repo,
-  `null` otherwise (see the hard rule above). Non-null values must also be
-  unique across entries.
+- `widgetUrl`: required string, must be unique across entries. It must be an
+  install URL the target repo *explicitly documents* (see the hard rule
+  above). Never `null`, never omitted, never guessed — if there's nothing
+  explicit to put here, the widget doesn't get an entry.
 - `description`: required string, one sentence. Don't editorialize or add
   marketing language beyond what the widget's own docs say about it.
 
@@ -75,8 +76,10 @@ author derived from `repoUrl`.
 2. **Read the target repo's README** (and `package.json` / `manifest.json`
    if present) to find:
    - a one-sentence description (use the project's own wording, condensed)
-   - the explicit install URL, if documented (do not derive `author` from
-     here — it always comes from `repoUrl`, per the schema above)
+   - the explicit install URL (do not derive `author` from here — it always
+     comes from `repoUrl`, per the schema above). **If you can't find one
+     explicitly documented, stop here** — don't add the widget, and say so
+     in your response.
 3. **Check for duplicates**: search `widgets.json` for the same `repoUrl`
    before adding a new entry — it's the unique key.
 4. **Add the entry** to `widgets.json`, keeping the array sorted however you
@@ -92,16 +95,19 @@ author derived from `repoUrl`.
    node -e "JSON.parse(require('fs').readFileSync('widgets.json','utf8'))"  # valid JSON
    ```
 7. **Commit** both `widgets.json` and the regenerated `README.md` together.
-8. **Open a PR.** In the description, list each widget added and, for any
-   `widgetUrl: null` entries, say explicitly that the install URL wasn't
-   documented in the source repo and needs a human to confirm it.
+8. **Open a PR.** In the description, list each widget added, its
+   qualification checks, and where its `widgetUrl` was documented (link or
+   quote the source). If you skipped a candidate widget because it had no
+   documented install URL, mention that in your response too, outside the PR.
 
 ## Adding multiple widgets in one PR
 
 Fine to batch several additions into one PR. Run the same checklist once at
 the end (add all entries, then one `generate-readme` + `check-readme` pass).
 List every widget added in the PR description, each with its qualification
-status (rule 1) and whether `widgetUrl` was found or left `null`.
+status (rule 1) and where its `widgetUrl` was sourced from. List any
+candidates you skipped for lacking a documented install URL separately, so
+the human knows what didn't make it in and why.
 
 ## Do not hand-edit generated content
 
