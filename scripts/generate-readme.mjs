@@ -21,6 +21,22 @@ const README_PATH = path.join(ROOT, "README.md");
 const START_MARKER = "<!-- WIDGETS:START -->";
 const END_MARKER = "<!-- WIDGETS:END -->";
 
+// repoUrl is the unique identifier for a widget (no separate "id" field)
+// and also the source we derive the display "author" from — the GitHub
+// owner/org segment. This must be a bare https://github.com/<owner>/<repo>
+// URL (no subpaths) for both of those to work reliably.
+const REPO_URL_PATTERN = /^https:\/\/github\.com\/([A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)\/([A-Za-z0-9._-]+?)\/?$/;
+
+function repoOwner(repoUrl) {
+  const match = repoUrl.match(REPO_URL_PATTERN);
+  if (!match) {
+    throw new Error(
+      `repoUrl "${repoUrl}" must look like https://github.com/<owner>/<repo> (no subpaths, no trailing content) — the owner segment is used as the widget's author.`
+    );
+  }
+  return match[1];
+}
+
 function loadWidgets() {
   const raw = JSON.parse(readFileSync(WIDGETS_PATH, "utf8"));
 
@@ -28,12 +44,14 @@ function loadWidgets() {
     throw new Error("widgets.json must contain an array of widgets.");
   }
 
-  const seenIds = new Set();
   const seenRepoUrls = new Set();
-  // widgetUrl is intentionally excluded here: it must be `null` (not a
-  // fabricated guess) when a repo doesn't explicitly document its
-  // install URL. See the "widgetUrl" note below and AGENTS.md.
-  const requiredStringFields = ["id", "name", "repoUrl", "author", "description"];
+  const seenWidgetUrls = new Set();
+  // Every field below is required on every entry — there are no optional
+  // fields. widgetUrl is the one exception to "required means a non-empty
+  // string": it must be present, but its value is `null` when the repo
+  // doesn't explicitly document an install URL (never a guessed one — see
+  // AGENTS.md).
+  const requiredStringFields = ["name", "repoUrl", "description"];
 
   for (const widget of raw) {
     for (const field of requiredStringFields) {
@@ -48,14 +66,24 @@ function loadWidgets() {
         `Widget entry ${JSON.stringify(widget)} must have "widgetUrl" as a string or null (use null, never a guessed URL, when the repo doesn't explicitly document an install URL).`
       );
     }
-    if (seenIds.has(widget.id)) {
-      throw new Error(`Duplicate widget id: ${widget.id}`);
-    }
+
+    // Validates the repoUrl shape and, as a side effect, that we can derive
+    // an author from it.
+    repoOwner(widget.repoUrl);
+
     if (seenRepoUrls.has(widget.repoUrl)) {
-      throw new Error(`Duplicate repoUrl: ${widget.repoUrl}`);
+      throw new Error(`Duplicate repoUrl (this is the unique identifier): ${widget.repoUrl}`);
     }
-    seenIds.add(widget.id);
     seenRepoUrls.add(widget.repoUrl);
+
+    // Only non-null widgetUrls need to be unique — multiple entries are
+    // allowed to have an undocumented (null) install URL.
+    if (widget.widgetUrl !== null) {
+      if (seenWidgetUrls.has(widget.widgetUrl)) {
+        throw new Error(`Duplicate widgetUrl: ${widget.widgetUrl}`);
+      }
+      seenWidgetUrls.add(widget.widgetUrl);
+    }
   }
 
   return raw;
@@ -64,10 +92,11 @@ function loadWidgets() {
 function groupByAuthor(widgets) {
   const groups = new Map();
   for (const widget of widgets) {
-    if (!groups.has(widget.author)) {
-      groups.set(widget.author, []);
+    const author = repoOwner(widget.repoUrl);
+    if (!groups.has(author)) {
+      groups.set(author, []);
     }
-    groups.get(widget.author).push(widget);
+    groups.get(author).push(widget);
   }
   return groups;
 }

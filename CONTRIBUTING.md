@@ -8,18 +8,18 @@ This repository is both a browsable "awesome list" and the data source for the w
 
    ```json
    {
-     "id": "owner/repo",
      "name": "Widget Name",
      "repoUrl": "https://github.com/owner/repo",
      "widgetUrl": "https://owner.github.io/repo/",
-     "author": "Author or org name",
      "description": "One sentence describing what the widget does."
    }
    ```
 
-   `widgetUrl` is the URL a user pastes into Grist's "Custom Widget" install field (usually GitHub Pages) — not the GitHub repo link. `repoUrl` is the source code. Widgets in the README are grouped by `author`.
+   All four fields are required on every entry — there is no optional field.
 
-   **Never invent `widgetUrl`.** Only use it if the target repo's own README/`package.json`/`manifest.json` explicitly documents an install URL. If it doesn't, set `"widgetUrl": null` — don't guess a `owner.github.io/repo/`-style URL and present it as real.
+   - `repoUrl` is the widget's **unique identifier** (there's no separate `id` field). It must be a bare `https://github.com/<owner>/<repo>` URL, no subpaths — the `<owner>` segment is also what the README groups widgets by (there's no `author` field either; it's derived from this URL).
+   - `widgetUrl` is the URL a user pastes into Grist's "Custom Widget" install field (usually GitHub Pages) — not the GitHub repo link.
+     **Never invent it.** Only use it if the target repo's own README/`package.json`/`manifest.json` explicitly documents an install URL. If it doesn't, set `"widgetUrl": null` — don't guess a `owner.github.io/repo/`-style URL and present it as real. (The field is still required — always include the key, with `null` as its value when there's nothing documented.)
 
 2. Run:
 
@@ -33,7 +33,7 @@ This repository is both a browsable "awesome list" and the data source for the w
 
 ## Requirements for listed widgets
 
-- a public GitHub repository
+- **Must be open source**: the repo behind `repoUrl` must be public and shared under an open-source license. No private, gated, or closed-source repos — the GitHub repository *is* the widget's canonical home, not just a landing page for it.
 - clear documentation
 - a license
 - installation instructions

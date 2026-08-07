@@ -6,11 +6,11 @@ This list is also published as structured data in [`widgets.json`](./widgets.jso
 
 <!-- WIDGETS:START -->
 
-## beta.gouv.fr
+## betagouv
 
 - [Grist Custom Widgets FR Admin](https://github.com/betagouv/grist-custom-widgets-fr-admin) — Collection of widgets developed for French administration workflows. ([install](https://betagouv.github.io/grist-custom-widgets-fr-admin/))
 
-## Grist Labs
+## gristlabs
 
 - [Advanced Charts](https://github.com/gristlabs/custom-charts-widget) — Interactive Plotly-powered charting widget for creating rich visualizations directly in Grist. ([install](https://gristlabs.github.io/custom-charts-widget/))
 
@@ -36,20 +36,20 @@ Widgets are tracked as data in [`widgets.json`](./widgets.json) — this README 
 
 To add a widget:
 
-1. Add an entry to `widgets.json` with `id` (`owner/repo`), `name`, `repoUrl`, `widgetUrl` (the URL to paste into Grist's "Custom Widget" install field), `author`, and `description`.
+1. Add an entry to `widgets.json` with `name`, `repoUrl` (the widget's unique identifier — a bare `https://github.com/<owner>/<repo>` URL), `widgetUrl` (the URL to paste into Grist's "Custom Widget" install field, or `null` if the repo doesn't document one), and `description`. All fields are required on every entry. There's no `author` field — it's derived from the `<owner>` in `repoUrl`, which is also how the list below is grouped.
 2. Run `npm run generate-readme` and commit the resulting `README.md` change alongside `widgets.json`.
 3. Open a pull request. CI checks that `README.md` matches `widgets.json`.
 
 Coding agents can do this end-to-end — see [`AGENTS.md`](./AGENTS.md) for the
 full process and rules (most importantly: never invent a `widgetUrl`).
 
-Widgets should have:
+Widgets **must**:
 
-- a public GitHub repository
-- clear documentation
-- a license
-- installation instructions
-- active maintenance
+- live in a public, open-source GitHub repository (the repo itself is the widget's home — no proprietary/closed-source submissions, no repos that are private or gated)
+- have clear documentation
+- have a license
+- have installation instructions
+- show active maintenance
 
 ## License
 

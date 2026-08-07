@@ -23,15 +23,20 @@ user pastes straight into their Grist document.
 For each widget repo you're asked to add:
 
 1. **Fetch and read the target repo** (README, `package.json`,
-   `manifest.json`). Confirm it qualifies: public repo, documented, licensed,
-   has install instructions, looks maintained.
-2. **Extract**: `name`, `author`, one-sentence `description` (in the
-   project's own words, condensed), `repoUrl` (canonical `github.com/owner/repo`),
-   and `widgetUrl` if — and only if — explicitly documented.
-3. **Check `widgets.json` for an existing entry** with the same `repoUrl` or
-   `id` (`owner/repo`). Skip or update instead of duplicating.
-4. **Append the entry** to the JSON array in `widgets.json` following the
-   schema in `AGENTS.md`.
+   `manifest.json`). Confirm it qualifies — hard requirement: **public,
+   open-source repo** (not private/gated/closed-source) — plus documented,
+   licensed, has install instructions, looks maintained. If it doesn't
+   qualify, don't add it; say why instead.
+2. **Extract**: `name`, one-sentence `description` (in the project's own
+   words, condensed), `repoUrl` (bare `https://github.com/owner/repo`, no
+   subpaths — this is the unique identifier and also where `author` gets
+   derived from, so don't add an `author` field), and `widgetUrl` if — and
+   only if — explicitly documented.
+3. **Check `widgets.json` for an existing entry** with the same `repoUrl`
+   (the unique key). Skip or update instead of duplicating.
+4. **Append the entry** to the JSON array in `widgets.json` — all four
+   fields (`name`, `repoUrl`, `widgetUrl`, `description`) required on every
+   entry, per the schema in `AGENTS.md`.
 5. **Regenerate and validate**:
    ```sh
    npm run generate-readme
