@@ -1,0 +1,10 @@
+{
+  "name": "awesome-grist-widgets",
+  "private": true,
+  "type": "module",
+  "description": "Registry of Grist custom widgets, published as data (widgets.json) and as a generated awesome-list README.",
+  "scripts": {
+    "generate-readme": "node scripts/generate-readme.mjs",
+    "check-readme": "node scripts/generate-readme.mjs --check"
+  }
+}
