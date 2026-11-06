@@ -63,6 +63,23 @@ Field notes:
 There is no `category` field and no `id` field — the README groups by the
 author derived from `repoUrl`.
 
+### The optional `reference` field
+
+`"reference": true` marks a **reference widget**: one built with
+`grist-widget-sdk` that the SDK's CI checks against every change before it
+is released. Its "Real widgets" workflow reads the reference entries from
+this file on `main`, clones each one (its `dev` branch if there is one,
+else the default branch), and runs its typecheck, tests and build against
+the SDK being changed; weekly, also inside a real Grist. It runs the
+widget's code, read-only and without secrets, so the list is the
+maintainer's to curate:
+
+- Never add `reference` on your own, and never to a widget not built with
+  `grist-widget-sdk`. Add or remove it only when the maintainer asks.
+- Only `true` is accepted; leave the field out otherwise. Any other field
+  is rejected by the generator.
+- A reference widget meets every rule below like any other entry.
+
 ## Checklist for adding a widget
 
 1. **Verify the repo qualifies** (per `README.md` / `CONTRIBUTING.md`) —

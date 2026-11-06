@@ -74,6 +74,23 @@ function loadWidgets() {
       throw new Error(`Duplicate widgetUrl: ${widget.widgetUrl}`);
     }
     seenWidgetUrls.add(widget.widgetUrl);
+
+    // Optional. A reference widget is built with grist-widget-sdk, and the
+    // SDK's CI checks it against every change (see AGENTS.md). Only `true`
+    // is meaningful, so only `true` is accepted: leave the field out
+    // otherwise.
+    if ("reference" in widget && widget.reference !== true) {
+      throw new Error(
+        `Widget ${widget.repoUrl}: "reference" must be true, or left out.`
+      );
+    }
+
+    const allowed = new Set([...requiredStringFields, "reference"]);
+    for (const key of Object.keys(widget)) {
+      if (!allowed.has(key)) {
+        throw new Error(`Widget ${widget.repoUrl}: unknown field "${key}".`);
+      }
+    }
   }
 
   return raw;
@@ -100,7 +117,8 @@ function renderWidgetsSection(widgets) {
       .get(author)
       .sort((a, b) => a.name.localeCompare(b.name))
       .map(
-        (w) => `- [${w.name}](${w.repoUrl}) — ${w.description} ([install](${w.widgetUrl}))`
+        (w) =>
+          `- [${w.name}](${w.repoUrl})${w.reference ? " · *reference*" : ""} — ${w.description} ([install](${w.widgetUrl}))`
       )
       .join("\n\n");
     return `## ${author}\n\n${entries}`;
