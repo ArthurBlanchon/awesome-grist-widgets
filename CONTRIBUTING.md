@@ -15,7 +15,10 @@ This repository is both a browsable "awesome list" and the data source for the w
    }
    ```
 
-   All four fields are required on every entry — there is no optional field.
+   All four fields are required on every entry. One optional field,
+   `"reference": true`, marks a reference widget: built with
+   grist-widget-sdk and checked by the SDK's CI against every change. The
+   maintainer sets it; don't add it in a submission.
 
    - `repoUrl` is the widget's **unique identifier** (there's no separate `id` field). It must be a bare `https://github.com/<owner>/<repo>` URL, no subpaths — the `<owner>` segment is also what the README groups widgets by (there's no `author` field either; it's derived from this URL).
    - `widgetUrl` is the URL a user pastes into Grist's "Custom Widget" install field (usually GitHub Pages) — not the GitHub repo link.
