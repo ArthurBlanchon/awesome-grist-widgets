@@ -1,6 +1,6 @@
 # Awesome Grist Widgets
 
-A curated collection of custom widgets for **Grist**.
+A curated collection of custom widgets for **Grist**, all built with [grist-widget-sdk](https://github.com/ArthurBlanchon/grist-widget-sdk).
 
 This list is also published as structured data in [`widgets.json`](./widgets.json), used to power the "discover widgets" directory on the companion website. The list below is generated from that file — see [Contributing](#contributing) before editing it by hand.
 
@@ -8,25 +8,13 @@ Widgets marked *reference* are built with [grist-widget-sdk](https://github.com/
 
 <!-- WIDGETS:START -->
 
-## betagouv
 
-- [Grist Custom Widgets FR Admin](https://github.com/betagouv/grist-custom-widgets-fr-admin) — Collection of widgets developed for French administration workflows. ([install](https://betagouv.github.io/grist-custom-widgets-fr-admin/))
-
-## gristlabs
-
-- [Advanced Charts](https://github.com/gristlabs/custom-charts-widget) — Interactive Plotly-powered charting widget for creating rich visualizations directly in Grist. ([install](https://gristlabs.github.io/custom-charts-widget/))
-
-- [Grist Widget Examples](https://github.com/gristlabs/grist-widget) — Official reference implementations and examples for building custom Grist widgets, including record views and invoice-style layouts. ([install](https://gristlabs.github.io/grist-widget/))
-
-## salmanmkc
-
-- [Grist Custom Widget Kanban](https://github.com/salmanmkc/Grist-Custom-Widget-Kanban) — Kanban-style custom widget for organizing records by workflow state. ([install](https://dycazo-by-fastcube.github.io/Grist-Custom-Widget-Kanban/))
 
 <!-- WIDGETS:END -->
 
 ## More Widgets Coming
 
-This catalog is being expanded with additional community widgets. Every entry uses the GitHub repository as the canonical source.
+The first widgets join as they are released. Every entry uses the GitHub repository as the canonical source.
 
 ## Contributing
 
@@ -43,6 +31,7 @@ full process and rules (most importantly: never invent a `widgetUrl`).
 
 Widgets **must**:
 
+- be built with [grist-widget-sdk](https://github.com/ArthurBlanchon/grist-widget-sdk) (scaffolded with `npm create grist-widget`, or using the SDK)
 - live in a public, open-source GitHub repository (the repo itself is the widget's home — no proprietary/closed-source submissions, no repos that are private or gated)
 - have clear documentation
 - have a license

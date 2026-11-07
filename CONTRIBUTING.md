@@ -36,6 +36,7 @@ This repository is both a browsable "awesome list" and the data source for the w
 
 ## Requirements for listed widgets
 
+- **Must be built with [grist-widget-sdk](https://github.com/ArthurBlanchon/grist-widget-sdk)**: its `package.json` depends on `grist-widget-sdk`. The registry lists SDK widgets only.
 - **Must be open source**: the repo behind `repoUrl` must be public and shared under an open-source license. No private, gated, or closed-source repos — the GitHub repository *is* the widget's canonical home, not just a landing page for it.
 - clear documentation
 - a license

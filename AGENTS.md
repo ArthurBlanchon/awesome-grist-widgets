@@ -84,6 +84,9 @@ maintainer's to curate:
 
 1. **Verify the repo qualifies** (per `README.md` / `CONTRIBUTING.md`) —
    this is a hard requirement, not a nice-to-have:
+   - **built with `grist-widget-sdk`.** Its `package.json` depends on
+     `grist-widget-sdk`. This registry lists SDK widgets only (decided
+     2026-11-07): a widget built otherwise isn't eligible, however good.
    - **public, open-source GitHub repository.** The repo itself must be the
      widget's home, publicly visible and under an open-source license — not
      private, not gated, not just a marketing link to something closed-source.
