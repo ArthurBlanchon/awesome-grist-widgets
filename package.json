@@ -2,9 +2,13 @@
   "name": "awesome-grist-widgets",
   "private": true,
   "type": "module",
-  "description": "Registry of Grist custom widgets, published as data (widgets.json) and as a generated awesome-list README.",
+  "description": "Registry of Grist custom widgets built with grist-widget-sdk: registry.json, described by each widget's own grist-widget.json manifest, as committed data (widgets.json, a Grist widget list in grist-widgets.json) and a generated awesome-list README.",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "generate-readme": "node scripts/generate-readme.mjs",
-    "check-readme": "node scripts/generate-readme.mjs --check"
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "test": "node --test \"scripts/*.test.mjs\""
   }
 }
