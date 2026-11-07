@@ -1,60 +1,40 @@
 ---
 name: add-widget
-description: Add one or more Grist widgets to this repo's registry (widgets.json) and open a PR. Use when asked to add, register, submit, or catalog a Grist widget/repo, or when given a GitHub repo URL to add to the awesome-grist-widgets list.
+description: Add one or more Grist widgets built with grist-widget-sdk to this repo's registry (registry.json) and open a PR. Use when asked to add, register, submit, or catalog a Grist widget/repo, or when given a GitHub repo URL to add to the awesome-grist-widgets list.
 ---
 
 # Add a widget to the registry
 
-Full rules and schema reference: [`AGENTS.md`](../../../AGENTS.md) at the
-repo root. Read it before making changes — this skill is the short
-step-by-step version of the same process.
+Full rules: [`AGENTS.md`](../../../AGENTS.md) at the repo root. This is the
+short version.
 
-## The one rule that matters most
+## The rules that matter most
 
-**Never invent a `widgetUrl`, and never add a widget without one.** It must
-come from something explicit in the target repo (README, `package.json`
-homepage, `manifest.json`, a linked demo site) — do not guess a
-`owner.github.io/repo/`-style URL and pass it off as real. If the repo
-doesn't document an install URL, the widget isn't eligible for this
-registry yet; skip it and say so, don't add a placeholder. A wrong repo
-link is annoying; a wrong (or missing) widget install URL is something a
-user needs to actually paste into their Grist document.
+- **SDK widgets only.** The widget must be built with `grist-widget-sdk`
+  (`create-grist-widget` 0.3.32 or later), so its deploy publishes
+  `grist-widget.json` next to its install URL. Anything else isn't eligible.
+- **Never invent a `widgetUrl`.** Use the install URL the widget's own README
+  documents (usually `https://<owner>.github.io/<repo>/latest/`). None
+  documented: not eligible yet; say so.
+- **Never add `"reference": true`** unless the maintainer asks.
 
 ## Steps
 
-For each widget repo you're asked to add:
-
-1. **Fetch and read the target repo** (README, `package.json`,
-   `manifest.json`). Confirm it qualifies — hard requirement: **public,
-   open-source repo** (not private/gated/closed-source) — plus documented,
-   licensed, has install instructions, looks maintained. If it doesn't
-   qualify, don't add it; say why instead.
-2. **Extract**: `name`, one-sentence `description` (in the project's own
-   words, condensed), `repoUrl` (bare `https://github.com/owner/repo`, no
-   subpaths — this is the unique identifier and also where `author` gets
-   derived from, so don't add an `author` field), and `widgetUrl` — but only
-   if it's explicitly documented. **If it isn't, stop here for this widget**:
-   don't add it, and mention in your response that it's a candidate pending
-   a documented install URL.
-3. **Check `widgets.json` for an existing entry** with the same `repoUrl`
-   (the unique key). Skip or update instead of duplicating.
-4. **Append the entry** to the JSON array in `widgets.json` — all four
-   fields (`name`, `repoUrl`, `widgetUrl`, `description`) required and
-   non-null on every entry, per the schema in `AGENTS.md`.
-5. **Regenerate and validate**:
+1. Read the target repo: README (install URL), `package.json` (depends on
+   `grist-widget-sdk`, has a `license`), recent activity. Not qualifying:
+   skip it and say why.
+2. Check `<widgetUrl>grist-widget.json` is served (a release build of that
+   repo).
+3. Check `registry.json` for the same `repoUrl` or `widgetUrl`.
+4. Add `{ "repoUrl": ..., "widgetUrl": ... }` to `registry.json`. No other
+   field: name, description and the rest come from the manifest.
+5. Run:
    ```sh
-   npm run generate-readme
-   npm run check-readme
-   node -e "JSON.parse(require('fs').readFileSync('widgets.json','utf8'))"
+   npm test
+   npm run build   # rewrites README.md and widgets.json from the manifests
+   npm run check
    ```
-6. **Commit** `widgets.json` and the regenerated `README.md` together, on a
-   new branch (don't commit to `main`).
-7. **Open a PR.** In the body, list every widget added, its qualification
-   checks, and where its `widgetUrl` was sourced from (link or quote it).
-
-## Batching
-
-Adding several widgets in one session? Do steps 1–4 for each, then run
-step 5's validation once at the end before committing. One PR, one summary
-listing all additions — plus a separate note for any candidates skipped for
-lacking a documented install URL.
+6. Commit `registry.json`, `README.md` and `widgets.json` on a new branch
+   (never `main`), and open a PR listing each widget, its qualification
+   checks, and where its install URL is documented. Mention skipped
+   candidates in your response.

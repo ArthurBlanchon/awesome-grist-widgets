@@ -1,57 +1,56 @@
 # Contributing
 
-This repository is both a browsable "awesome list" and the data source for the widget directory on the companion website. To keep both in sync, widgets are tracked as data rather than as hand-written Markdown.
+This registry lists Grist custom widgets built with
+[grist-widget-sdk](https://github.com/ArthurBlanchon/grist-widget-sdk). You
+add a widget with two URLs; everything else is read from the
+`grist-widget.json` manifest the widget's own deploy publishes.
 
 ## Adding a widget
 
-1. Add an entry to [`widgets.json`](./widgets.json):
+1. Add an entry to [`registry.json`](./registry.json):
 
    ```json
    {
-     "name": "Widget Name",
      "repoUrl": "https://github.com/owner/repo",
-     "widgetUrl": "https://owner.github.io/repo/",
-     "description": "One sentence describing what the widget does."
+     "widgetUrl": "https://owner.github.io/repo/latest/"
    }
    ```
 
-   All four fields are required on every entry. One optional field,
-   `"reference": true`, marks a reference widget: built with
-   grist-widget-sdk and checked by the SDK's CI against every change. The
-   maintainer sets it; don't add it in a submission.
+   - `repoUrl` is the widget's unique identifier: a bare
+     `https://github.com/<owner>/<repo>`.
+   - `widgetUrl` is the URL a user pastes into Grist's custom widget field,
+     **as the widget's own README documents it**. Never guess one. A widget
+     scaffolded with `npm create grist-widget` writes it into its README at
+     its first release.
 
-   - `repoUrl` is the widget's **unique identifier** (there's no separate `id` field). It must be a bare `https://github.com/<owner>/<repo>` URL, no subpaths — the `<owner>` segment is also what the README groups widgets by (there's no `author` field either; it's derived from this URL).
-   - `widgetUrl` is the URL a user pastes into Grist's "Custom Widget" install field (usually GitHub Pages) — not the GitHub repo link.
-     **Never invent it, and never leave it null.** Only add a widget if the target repo's own README/`package.json`/`manifest.json` explicitly documents an install URL — don't guess a `owner.github.io/repo/`-style URL and present it as real. If a repo doesn't document one, it isn't eligible for the registry yet; don't add it (or open an issue instead, so it can be added once it does).
+   An optional `"reference": true` marks a reference widget, which
+   grist-widget-sdk's CI checks against every change. The maintainer sets
+   it; don't add it in a submission.
 
-2. Run:
+2. Run `npm run build`: it fetches each widget's manifest and rewrites the
+   list below in `README.md` and `widgets.json`. Commit them with
+   `registry.json`.
 
-   ```sh
-   npm run generate-readme
-   ```
-
-   and commit the resulting change to `README.md` alongside `widgets.json`.
-
-3. Open a pull request. CI runs `npm run check-readme` and fails if `README.md` doesn't match `widgets.json` — if that happens, just re-run step 2.
+3. Open a pull request. CI (`npm run check`) fetches every manifest again
+   and fails if one is missing, comes from a `/dev/` build, or names another
+   repository.
 
 ## Requirements for listed widgets
 
-- **Must be built with [grist-widget-sdk](https://github.com/ArthurBlanchon/grist-widget-sdk)**: its `package.json` depends on `grist-widget-sdk`. The registry lists SDK widgets only.
-- **Must be open source**: the repo behind `repoUrl` must be public and shared under an open-source license. No private, gated, or closed-source repos — the GitHub repository *is* the widget's canonical home, not just a landing page for it.
-- clear documentation
-- a license
-- installation instructions
-- active maintenance
+- **Built with grist-widget-sdk**, with `create-grist-widget` 0.3.32 or
+  later: its deploy publishes `grist-widget.json` next to the widget.
+- **Open source**: a public GitHub repository under an open-source license.
+- Clear documentation, installation instructions, active maintenance.
 
-## Editing an existing widget
+## Editing or removing a widget
 
-Edit its entry in `widgets.json`, regenerate the README, and open a PR — same as adding one.
+A widget's name, description, access level and columns come from its
+manifest: change them in the widget (`WIDGET_METADATA`, `GRIST_OPTIONS`) and
+release it; the published data follows within a day. To remove a widget,
+delete its entry and rebuild.
 
-Please don't hand-edit the widget list inside the `<!-- WIDGETS:START -->` / `<!-- WIDGETS:END -->` markers in `README.md`; it's overwritten by the generator.
+## Using a coding agent
 
-## Using a coding agent to add widgets
-
-See [`AGENTS.md`](./AGENTS.md) for a process a coding agent can follow
-end-to-end — including the full schema and the rule against invented URLs.
-A Claude Code-specific version of the same steps lives at
-[`.claude/skills/add-widget/SKILL.md`](./.claude/skills/add-widget/SKILL.md).
+[`AGENTS.md`](./AGENTS.md) is the full process for an agent, and
+[`.claude/skills/add-widget/SKILL.md`](./.claude/skills/add-widget/SKILL.md)
+the Claude Code version of it.

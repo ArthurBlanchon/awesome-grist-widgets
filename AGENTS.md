@@ -1,136 +1,99 @@
 # Agent instructions: adding widgets to this registry
 
-This repo is a registry of Grist custom widgets. `widgets.json` is the single
-source of truth; `README.md` is generated from it. A second consumer (a
-website's "discover widgets" page) fetches `widgets.json` directly, so data
-quality in that file matters more than in a typical awesome-list.
+This repo is a registry of Grist custom widgets **built with
+[grist-widget-sdk](https://github.com/ArthurBlanchon/grist-widget-sdk)**.
+`registry.json` is the curated list, and the only file you edit. Everything
+else about a widget (its name, description, access level, columns, version,
+license) comes from the `grist-widget.json` manifest its own deploy
+publishes next to its install URL, so it is never typed by hand and never
+goes stale.
 
-If you are an agent asked to add one or more widgets to this registry and
-open a PR, follow this process exactly.
+`scripts/build.mjs` reads `registry.json` and each manifest, and generates:
+
+- `README.md`'s widget list (between the WIDGETS markers), and
+  `widgets.json`: regenerated in the pull request that changes
+  `registry.json` (`npm run build`).
+- `widgets.json` and `grist-widgets.json` on GitHub Pages
+  (`https://arthurblanchon.github.io/awesome-grist-widgets/`), published by
+  `.github/workflows/publish.yml` after every merge and daily, so they
+  follow each widget's releases. The website's "discover widgets" page
+  reads `widgets.json`; a self-hosted Grist reads `grist-widgets.json`
+  through `GRIST_WIDGET_LIST_URL`.
+
+If you are an agent asked to add one or more widgets and open a PR, follow
+this process exactly.
 
 ## The hard rule: never invent a URL
 
-Every field in `widgets.json` must come from something you actually read —
-the target repo's README, its `package.json` `homepage` field, its
-`manifest.json`, a linked demo site, or a GitHub Pages URL that is
-*explicitly stated* in the repo's own documentation.
+`widgetUrl` must be the install URL the widget's own repo **explicitly
+documents** (its README's install URL, usually `https://<owner>.github.io/<repo>/latest/`).
+Don't guess one from the `owner.github.io/repo/` convention, don't assume
+`repoUrl` and `widgetUrl` are the same, don't copy one from a similar
+project. If a repo documents none, it isn't eligible yet: say so instead of
+adding it.
 
-Do **not**:
-- Guess a GitHub Pages URL from the `owner.github.io/repo/` convention
-  and present it as the install URL.
-- Assume `repoUrl` and `widgetUrl` are the same.
-- Copy a URL from a similarly-named project.
+The build enforces the rest: it fetches `<widgetUrl>grist-widget.json` and
+lists the widget only if that manifest is a **release** build whose
+`gristWidgetSdk.repository` is the entry's `repoUrl`. Only grist-widget-sdk's
+deploy writes that file, so a wrong URL, a `/dev/` URL or a widget not built
+with the SDK fails the check.
 
-If a repo does not explicitly document its install URL, **the widget is not
-eligible for this registry yet** — do not add it, and do not use `null` as a
-placeholder. Say so in your response instead of opening a PR for it (or open
-an issue proposing it once the maintainer documents an install URL).
-
-This rule exists because a wrong `repoUrl` just annoys a browsing human, but
-a wrong `widgetUrl` is a URL that gets pasted directly into someone's Grist
-document — it must be trustworthy.
-
-## `widgets.json` schema
-
-Each entry has exactly these four fields, **all of them required on every
-entry** — none are optional, none may be omitted:
+## `registry.json` schema
 
 ```json
 {
-  "name": "Human-readable widget name",
   "repoUrl": "https://github.com/owner/repo",
-  "widgetUrl": "https://owner.github.io/repo/",
-  "description": "One sentence, present tense, describing what the widget does."
+  "widgetUrl": "https://owner.github.io/repo/latest/"
 }
 ```
 
-Field notes:
-- `name`: required string.
-- `repoUrl`: required string. **This is the widget's unique identifier** —
-  there is no separate `id` field. It must be a bare
-  `https://github.com/<owner>/<repo>` URL with no subpaths (the generator
-  enforces this shape and rejects duplicates). The `<owner>` segment is
-  used directly as the widget's author — there is no separate `author`
-  field either, and no free text to keep consistent: it's derived, so it's
-  always correct and always groups correctly in the generated README.
-- `widgetUrl`: required string, must be unique across entries. It must be an
-  install URL the target repo *explicitly documents* (see the hard rule
-  above). Never `null`, never omitted, never guessed — if there's nothing
-  explicit to put here, the widget doesn't get an entry.
-- `description`: required string, one sentence. Don't editorialize or add
-  marketing language beyond what the widget's own docs say about it.
+- `repoUrl`: required, the widget's unique identifier. A bare
+  `https://github.com/<owner>/<repo>`, no subpath. Its `<owner>` is how the
+  README groups widgets.
+- `widgetUrl`: required, unique, `https`, ending with `/`: the release
+  install URL its repo documents (see the hard rule).
+- `reference`: optional, `true` only. Marks a **reference widget**, which
+  grist-widget-sdk's CI checks against every SDK change (its "Real widgets"
+  workflow reads the reference entries of the published `widgets.json`,
+  clones each one, and runs its typecheck, tests and build; weekly also in a
+  real Grist). That runs the widget's code, read-only and without secrets,
+  so **never add `reference` on your own**: only when the maintainer asks.
 
-There is no `category` field and no `id` field — the README groups by the
-author derived from `repoUrl`.
-
-### The optional `reference` field
-
-`"reference": true` marks a **reference widget**: one built with
-`grist-widget-sdk` that the SDK's CI checks against every change before it
-is released. Its "Real widgets" workflow reads the reference entries from
-this file on `main`, clones each one (its `dev` branch if there is one,
-else the default branch), and runs its typecheck, tests and build against
-the SDK being changed; weekly, also inside a real Grist. It runs the
-widget's code, read-only and without secrets, so the list is the
-maintainer's to curate:
-
-- Never add `reference` on your own, and never to a widget not built with
-  `grist-widget-sdk`. Add or remove it only when the maintainer asks.
-- Only `true` is accepted; leave the field out otherwise. Any other field
-  is rejected by the generator.
-- A reference widget meets every rule below like any other entry.
+No other field is accepted: `name`, `description` and the rest come from the
+manifest.
 
 ## Checklist for adding a widget
 
-1. **Verify the repo qualifies** (per `README.md` / `CONTRIBUTING.md`) —
-   this is a hard requirement, not a nice-to-have:
-   - **built with `grist-widget-sdk`.** Its `package.json` depends on
-     `grist-widget-sdk`. This registry lists SDK widgets only (decided
-     2026-11-07): a widget built otherwise isn't eligible, however good.
-   - **public, open-source GitHub repository.** The repo itself must be the
-     widget's home, publicly visible and under an open-source license — not
-     private, not gated, not just a marketing link to something closed-source.
-   - has documentation, has a license, has installation instructions, and
-     looks actively maintained (check last commit date). If any of these is
-     missing, don't add the widget — say why in your response instead.
-2. **Read the target repo's README** (and `package.json` / `manifest.json`
-   if present) to find:
-   - a one-sentence description (use the project's own wording, condensed)
-   - the explicit install URL (do not derive `author` from here — it always
-     comes from `repoUrl`, per the schema above). **If you can't find one
-     explicitly documented, stop here** — don't add the widget, and say so
-     in your response.
-3. **Check for duplicates**: search `widgets.json` for the same `repoUrl`
-   before adding a new entry — it's the unique key.
-4. **Add the entry** to `widgets.json`, keeping the array sorted however you
-   like — the generator sorts output itself, so array order in the file
-   doesn't need to match the README.
-5. **Regenerate the README**:
+1. **Verify the repo qualifies** — a hard requirement:
+   - **built with `grist-widget-sdk`** (its `package.json` depends on it),
+     with `create-grist-widget` 0.3.32 or later, whose deploy publishes
+     `grist-widget.json`;
+   - **public, open-source GitHub repository**, with a license (the
+     manifest's `gristWidgetSdk.license` must be set), documentation,
+     installation instructions, and recent activity.
+   If any of these is missing, don't add it; say why.
+2. **Find the documented install URL** in its README (see the hard rule).
+   Check that `<widgetUrl>grist-widget.json` is served.
+3. **Check for duplicates** in `registry.json` (same `repoUrl` or
+   `widgetUrl`).
+4. **Add the entry** to `registry.json`.
+5. **Build and check**:
    ```sh
-   npm run generate-readme
+   npm test          # the build script's own tests
+   npm run build     # fetches the manifests, rewrites README.md and widgets.json
+   npm run check     # what CI runs
    ```
-6. **Validate**:
-   ```sh
-   npm run check-readme        # confirms README.md matches widgets.json
-   node -e "JSON.parse(require('fs').readFileSync('widgets.json','utf8'))"  # valid JSON
-   ```
-7. **Commit** both `widgets.json` and the regenerated `README.md` together.
-8. **Open a PR.** In the description, list each widget added, its
-   qualification checks, and where its `widgetUrl` was documented (link or
-   quote the source). If you skipped a candidate widget because it had no
-   documented install URL, mention that in your response too, outside the PR.
+   A manifest problem is reported per widget, with the reason: fix the
+   entry, or leave the widget out and say why.
+6. **Commit** `registry.json`, `README.md` and `widgets.json` together, on a
+   branch (never `main`), and **open a PR** listing each widget added, its
+   qualification checks, and where its install URL is documented. Mention
+   skipped candidates and why in your response.
 
-## Adding multiple widgets in one PR
-
-Fine to batch several additions into one PR. Run the same checklist once at
-the end (add all entries, then one `generate-readme` + `check-readme` pass).
-List every widget added in the PR description, each with its qualification
-status (rule 1) and where its `widgetUrl` was sourced from. List any
-candidates you skipped for lacking a documented install URL separately, so
-the human knows what didn't make it in and why.
+Batching several widgets in one PR is fine: add them all, then build once.
 
 ## Do not hand-edit generated content
 
-Never edit the widget list inside `<!-- WIDGETS:START -->` /
-`<!-- WIDGETS:END -->` in `README.md` directly — it's overwritten by
-`npm run generate-readme`. Edit `widgets.json` and regenerate instead.
+Never edit the list between `<!-- WIDGETS:START -->` and
+`<!-- WIDGETS:END -->` in `README.md`, nor `widgets.json`: `npm run build`
+overwrites both. Edit `registry.json` and rebuild.
