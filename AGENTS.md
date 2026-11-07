@@ -8,17 +8,18 @@ license) comes from the `grist-widget.json` manifest its own deploy
 publishes next to its install URL, so it is never typed by hand and never
 goes stale.
 
-`scripts/build.mjs` reads `registry.json` and each manifest, and generates:
+`scripts/build.mjs` reads `registry.json` and each manifest, and generates
+three committed files, regenerated in the pull request that changes
+`registry.json` (`npm run build`) and read straight from the repository:
 
-- `README.md`'s widget list (between the WIDGETS markers), and
-  `widgets.json`: regenerated in the pull request that changes
-  `registry.json` (`npm run build`).
-- `widgets.json` and `grist-widgets.json` on GitHub Pages
-  (`https://arthurblanchon.github.io/awesome-grist-widgets/`), published by
-  `.github/workflows/publish.yml` after every merge and daily, so they
-  follow each widget's releases. The website's "discover widgets" page
-  reads `widgets.json`; a self-hosted Grist reads `grist-widgets.json`
-  through `GRIST_WIDGET_LIST_URL`.
+- `README.md`'s widget list (between the WIDGETS markers);
+- `widgets.json`: every widget with its manifest, read by the website's
+  "discover widgets" page and by grist-widget-sdk's Real widgets workflow;
+- `grist-widgets.json`: the same widgets in Grist's own widget-list format,
+  for a self-hosted Grist's `GRIST_WIDGET_LIST_URL`.
+
+What a widget's release changes in its manifest (version, last-updated
+date) reaches these files with the next registry pull request.
 
 If you are an agent asked to add one or more widgets and open a PR, follow
 this process exactly.
@@ -54,7 +55,7 @@ with the SDK fails the check.
   install URL its repo documents (see the hard rule).
 - `reference`: optional, `true` only. Marks a **reference widget**, which
   grist-widget-sdk's CI checks against every SDK change (its "Real widgets"
-  workflow reads the reference entries of the published `widgets.json`,
+  workflow reads the reference entries of `widgets.json` on `main`,
   clones each one, and runs its typecheck, tests and build; weekly also in a
   real Grist). That runs the widget's code, read-only and without secrets,
   so **never add `reference` on your own**: only when the maintainer asks.
@@ -80,12 +81,13 @@ manifest.
 5. **Build and check**:
    ```sh
    npm test          # the build script's own tests
-   npm run build     # fetches the manifests, rewrites README.md and widgets.json
+   npm run build     # fetches the manifests, rewrites README.md, widgets.json, grist-widgets.json
    npm run check     # what CI runs
    ```
    A manifest problem is reported per widget, with the reason: fix the
    entry, or leave the widget out and say why.
-6. **Commit** `registry.json`, `README.md` and `widgets.json` together, on a
+6. **Commit** `registry.json`, `README.md`, `widgets.json` and
+   `grist-widgets.json` together, on a
    branch (never `main`), and **open a PR** listing each widget added, its
    qualification checks, and where its install URL is documented. Mention
    skipped candidates and why in your response.
@@ -95,5 +97,5 @@ Batching several widgets in one PR is fine: add them all, then build once.
 ## Do not hand-edit generated content
 
 Never edit the list between `<!-- WIDGETS:START -->` and
-`<!-- WIDGETS:END -->` in `README.md`, nor `widgets.json`: `npm run build`
-overwrites both. Edit `registry.json` and rebuild.
+`<!-- WIDGETS:END -->` in `README.md`, nor `widgets.json` or
+`grist-widgets.json`: `npm run build` overwrites them. Edit `registry.json` and rebuild.

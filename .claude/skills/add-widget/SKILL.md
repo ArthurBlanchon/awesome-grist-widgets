@@ -31,10 +31,11 @@ short version.
 5. Run:
    ```sh
    npm test
-   npm run build   # rewrites README.md and widgets.json from the manifests
+   npm run build   # rewrites README.md, widgets.json and grist-widgets.json
    npm run check
    ```
-6. Commit `registry.json`, `README.md` and `widgets.json` on a new branch
+6. Commit `registry.json`, `README.md`, `widgets.json` and
+   `grist-widgets.json` on a new branch
    (never `main`), and open a PR listing each widget, its qualification
    checks, and where its install URL is documented. Mention skipped
    candidates in your response.

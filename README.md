@@ -4,10 +4,10 @@ A curated collection of custom widgets for **Grist**, all built with [grist-widg
 
 Each widget is described by the `grist-widget.json` manifest its own deploy publishes: what it does, the access it asks for, the columns it expects, its version and license. The list below is generated from them, and the same data is published for programs:
 
-- [`widgets.json`](https://arthurblanchon.github.io/awesome-grist-widgets/widgets.json): every widget with its manifest, used by the widget directory on [gristwidgets.com](https://gristwidgets.com/widgets).
-- [`grist-widgets.json`](https://arthurblanchon.github.io/awesome-grist-widgets/grist-widgets.json): the same widgets in Grist's own widget-list format. Point a self-hosted Grist's `GRIST_WIDGET_LIST_URL` at it, and they appear in its custom widget gallery.
+- [`widgets.json`](./widgets.json): every widget with its manifest, used by the widget directory on [gristwidgets.com](https://gristwidgets.com/widgets).
+- [`grist-widgets.json`](./grist-widgets.json): the same widgets in Grist's own widget-list format. Set a self-hosted Grist's `GRIST_WIDGET_LIST_URL` to `https://raw.githubusercontent.com/ArthurBlanchon/awesome-grist-widgets/main/grist-widgets.json`, and they appear in its custom widget gallery.
 
-Both are refreshed daily. Widgets marked *reference* are checked by grist-widget-sdk against every SDK change before it is released: typecheck, tests and build on each pull request, and weekly inside a real Grist.
+Widgets marked *reference* are checked by grist-widget-sdk against every SDK change before it is released: typecheck, tests and build on each pull request, and weekly inside a real Grist.
 
 <!-- WIDGETS:START -->
 

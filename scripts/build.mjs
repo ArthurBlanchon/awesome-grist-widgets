@@ -10,24 +10,25 @@
 //                       a self-hosted Grist's GRIST_WIDGET_LIST_URL.
 //   README.md           the section between the WIDGETS markers.
 //
-// The two JSON files are published on GitHub Pages by publish.yml, after
-// every merge and daily, so they follow each widget's releases with no
-// commit. The README (and, until the website reads Pages, widgets.json) is
-// regenerated in the pull request that changes registry.json.
+// All three are committed, regenerated in the pull request that changes
+// registry.json, and read straight from the repository (raw URLs), with no
+// publishing step. What a widget's release changes in its manifest (its
+// version, lastUpdatedAt) reaches them with the next registry pull request;
+// a reader that wants it live (the website) fetches the manifest from the
+// widget's install URL.
 //
 // It reads data only: no widget code runs. A manifest must be a release
 // build (not /dev/) and name the entry's own repository, which only the
 // SDK's CLI writes: that is how an entry proves it is an SDK widget whose
 // install URL its own deploy publishes.
 //
-//   node scripts/build.mjs               fetch the manifests, write README.md and widgets.json
-//   node scripts/build.mjs --site _site  write widgets.json and grist-widgets.json into _site/
-//   node scripts/build.mjs --check       validate the manifests, and that README.md and
-//                                        widgets.json list exactly registry.json's entries
+//   node scripts/build.mjs           fetch the manifests, write the three files
+//   node scripts/build.mjs --check   validate the manifests, and that the three files
+//                                    list exactly registry.json's entries
 //
 // No dependencies: Node 22's fetch and builtins only.
 
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs"
+import { readFileSync, writeFileSync } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
@@ -170,18 +171,22 @@ async function fetchManifest(entry) {
 }
 
 /** Committed files listing other entries than registry.json does (a stale pull request). */
-export function staleFiles(registry, readme, widgets) {
-  const want = registry.map((e) => e.repoUrl.toLowerCase()).sort().join("\n")
-  const inReadme = [...readme.slice(readme.indexOf(START), readme.indexOf(END)).matchAll(/^- \[[^\]]*\]\((https:\/\/github\.com\/[^)]+)\)/gm)]
-    .map((m) => m[1].toLowerCase()).sort().join("\n")
-  const inWidgets = (Array.isArray(widgets) ? widgets : []).map((w) => String(w.repoUrl).toLowerCase()).sort().join("\n")
-  return [inReadme === want ? null : "README.md", inWidgets === want ? null : "widgets.json"].filter(Boolean)
+export function staleFiles(registry, readme, widgets, gristWidgets) {
+  const sorted = (list) => list.map((s) => String(s).toLowerCase()).sort().join("\n")
+  const want = sorted(registry.map((e) => e.repoUrl))
+  const inReadme = sorted([...readme.slice(readme.indexOf(START), readme.indexOf(END)).matchAll(/^- \[[^\]]*\]\((https:\/\/github\.com\/[^)]+)\)/gm)].map((m) => m[1]))
+  const inWidgets = sorted((Array.isArray(widgets) ? widgets : []).map((w) => w.repoUrl))
+  const inGrist = sorted((Array.isArray(gristWidgets) ? gristWidgets : []).map((w) => w.gristWidgetSdk?.repository))
+  return [
+    inReadme === want ? null : "README.md",
+    inWidgets === want ? null : "widgets.json",
+    inGrist === want ? null : "grist-widgets.json",
+  ].filter(Boolean)
 }
 
 async function main() {
   const args = process.argv.slice(2)
   const check = args.includes("--check")
-  const siteDir = args.includes("--site") ? args[args.indexOf("--site") + 1] : null
   const registry = JSON.parse(readFileSync(path.join(ROOT, "registry.json"), "utf8"))
   const problems = registryProblems(registry)
   const listed = []
@@ -203,8 +208,16 @@ async function main() {
   console.log(`registry: ${listed.length} widget(s), every manifest valid`)
   const readmePath = path.join(ROOT, "README.md")
   const widgetsPath = path.join(ROOT, "widgets.json")
+  const gristPath = path.join(ROOT, "grist-widgets.json")
   if (check) {
-    const stale = staleFiles(registry, readFileSync(readmePath, "utf8"), JSON.parse(readFileSync(widgetsPath, "utf8")))
+    const read = (file) => {
+      try {
+        return JSON.parse(readFileSync(file, "utf8"))
+      } catch {
+        return null
+      }
+    }
+    const stale = staleFiles(registry, readFileSync(readmePath, "utf8"), read(widgetsPath), read(gristPath))
     if (stale.length) {
       console.error(`${stale.join(" and ")} don't list registry.json's entries: run \`npm run build\` and commit the result.`)
       process.exit(1)
@@ -213,16 +226,10 @@ async function main() {
   }
   const widgets = catalog(listed)
   const json = (value) => JSON.stringify(value, null, 2) + "\n"
-  if (siteDir) {
-    mkdirSync(siteDir, { recursive: true })
-    writeFileSync(path.join(siteDir, "widgets.json"), json(widgets))
-    writeFileSync(path.join(siteDir, "grist-widgets.json"), json(gristList(listed)))
-    console.log(`wrote ${siteDir}/widgets.json and ${siteDir}/grist-widgets.json`)
-    return
-  }
   writeFileSync(widgetsPath, json(widgets))
+  writeFileSync(gristPath, json(gristList(listed)))
   writeFileSync(readmePath, withSection(readFileSync(readmePath, "utf8"), readmeSection(widgets)))
-  console.log("wrote README.md and widgets.json")
+  console.log("wrote README.md, widgets.json and grist-widgets.json")
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await main()

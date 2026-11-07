@@ -28,8 +28,8 @@ add a widget with two URLs; everything else is read from the
    it; don't add it in a submission.
 
 2. Run `npm run build`: it fetches each widget's manifest and rewrites the
-   list below in `README.md` and `widgets.json`. Commit them with
-   `registry.json`.
+   list in `README.md`, `widgets.json` and `grist-widgets.json`. Commit them
+   with `registry.json`.
 
 3. Open a pull request. CI (`npm run check`) fetches every manifest again
    and fails if one is missing, comes from a `/dev/` build, or names another
@@ -46,7 +46,8 @@ add a widget with two URLs; everything else is read from the
 
 A widget's name, description, access level and columns come from its
 manifest: change them in the widget (`WIDGET_METADATA`, `GRIST_OPTIONS`) and
-release it; the published data follows within a day. To remove a widget,
+release it; the registry's files pick it up at the next registry pull
+request. To remove a widget,
 delete its entry and rebuild.
 
 ## Using a coding agent

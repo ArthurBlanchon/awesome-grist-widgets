@@ -3,7 +3,8 @@ name: Check the registry
 # On every pull request: the build script's tests, then each entry's
 # grist-widget.json manifest fetched from its install URL and validated
 # (an SDK widget's release build, naming the entry's own repository), and
-# README.md and widgets.json listing exactly registry.json's entries.
+# README.md, widgets.json and grist-widgets.json listing exactly
+# registry.json's entries.
 # Data only: no widget code runs.
 
 on:

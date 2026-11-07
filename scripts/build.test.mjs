@@ -55,11 +55,13 @@ test("the README section groups by owner and says what each widget declares", ()
   assert.equal(withSection("a<!-- WIDGETS:START -->old<!-- WIDGETS:END -->b", "new"), "a<!-- WIDGETS:START -->\n\nnew\n\n<!-- WIDGETS:END -->b")
 })
 
-test("a pull request must regenerate README.md and widgets.json when registry.json changes", () => {
-  const widgets = catalog([{ entry, manifest: manifest() }])
+test("a pull request must regenerate the three files when registry.json changes", () => {
+  const listed = [{ entry, manifest: manifest() }]
+  const widgets = catalog(listed)
   const readme = withSection("<!-- WIDGETS:START --><!-- WIDGETS:END -->", readmeSection(widgets))
-  assert.deepEqual(staleFiles([entry], readme, widgets), [])
+  assert.deepEqual(staleFiles([entry], readme, widgets, gristList(listed)), [])
   const added = { repoUrl: "https://github.com/acme/new", widgetUrl: "https://acme.github.io/new/latest/" }
-  assert.deepEqual(staleFiles([entry, added], readme, widgets), ["README.md", "widgets.json"])
-  assert.deepEqual(staleFiles([], withSection("<!-- WIDGETS:START --><!-- WIDGETS:END -->", readmeSection([])), []), [])
+  assert.deepEqual(staleFiles([entry, added], readme, widgets, gristList(listed)), ["README.md", "widgets.json", "grist-widgets.json"])
+  assert.deepEqual(staleFiles([entry], readme, widgets, null), ["grist-widgets.json"])
+  assert.deepEqual(staleFiles([], withSection("<!-- WIDGETS:START --><!-- WIDGETS:END -->", readmeSection([])), [], []), [])
 })

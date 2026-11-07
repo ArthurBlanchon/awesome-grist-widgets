@@ -2,7 +2,7 @@
   "name": "awesome-grist-widgets",
   "private": true,
   "type": "module",
-  "description": "Registry of Grist custom widgets built with grist-widget-sdk: registry.json, described by each widget's own grist-widget.json manifest, published as data and as a generated awesome-list README.",
+  "description": "Registry of Grist custom widgets built with grist-widget-sdk: registry.json, described by each widget's own grist-widget.json manifest, as committed data (widgets.json, a Grist widget list in grist-widgets.json) and a generated awesome-list README.",
   "engines": {
     "node": ">=22"
   },
