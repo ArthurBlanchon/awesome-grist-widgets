@@ -1,5 +1,154 @@
 [
   {
+    "name": "Ask AI",
+    "widgetId": "@arthurblanchon/ask-ai-widget",
+    "url": "https://arthurblanchon.github.io/ask-ai-widget/latest/",
+    "published": true,
+    "accessLevel": "read table",
+    "renderAfterReady": false,
+    "description": "Ask AI questions about your Grist data.",
+    "authors": [
+      {
+        "name": "ArthurBlanchon",
+        "url": "https://github.com/ArthurBlanchon"
+      }
+    ],
+    "lastUpdatedAt": "2026-11-08T18:28:50.569Z",
+    "gristWidgetSdk": {
+      "schema": 1,
+      "channel": "release",
+      "version": "0.1.0",
+      "repository": "https://github.com/ArthurBlanchon/ask-ai-widget",
+      "license": "MIT",
+      "sdk": "0.3.27",
+      "createGristWidget": "0.3.32"
+    }
+  },
+  {
+    "name": "Create Email Draft",
+    "widgetId": "@arthurblanchon/create-email-draft",
+    "url": "https://arthurblanchon.github.io/create-email-draft/latest/",
+    "published": true,
+    "accessLevel": "full",
+    "columns": [
+      {
+        "name": "recipients",
+        "title": "Bcc:",
+        "type": "Text",
+        "optional": false
+      },
+      {
+        "name": "replyToEmail",
+        "title": "To:",
+        "type": "Text",
+        "optional": false
+      },
+      {
+        "name": "subject",
+        "title": "Object:",
+        "type": "Text",
+        "optional": false
+      },
+      {
+        "name": "content",
+        "title": "Content:",
+        "type": "Text",
+        "optional": true
+      },
+      {
+        "name": "removedRecipients",
+        "title": "Removed Bcc",
+        "type": "Text",
+        "optional": true
+      },
+      {
+        "name": "status",
+        "title": "Status",
+        "type": "Text",
+        "optional": true
+      },
+      {
+        "name": "statusDate",
+        "title": "Status date",
+        "type": "DateTime",
+        "optional": true
+      }
+    ],
+    "renderAfterReady": false,
+    "description": "Compose an email draft from Grist row data and recipients.",
+    "authors": [
+      {
+        "name": "ArthurBlanchon",
+        "url": "https://github.com/ArthurBlanchon"
+      }
+    ],
+    "lastUpdatedAt": "2026-11-08T18:28:23.544Z",
+    "gristWidgetSdk": {
+      "schema": 1,
+      "channel": "release",
+      "version": "0.1.0",
+      "repository": "https://github.com/ArthurBlanchon/create-email-draft",
+      "license": "MIT",
+      "sdk": "0.3.27",
+      "createGristWidget": "0.3.32"
+    }
+  },
+  {
+    "name": "Gantt",
+    "widgetId": "@arthurblanchon/gantt-widget",
+    "url": "https://arthurblanchon.github.io/gantt-widget/latest/",
+    "published": true,
+    "accessLevel": "full",
+    "columns": [
+      {
+        "name": "Group_name",
+        "type": "Text,Ref,Choice",
+        "description": "Sidebar section title. When mapped to Choice, group accents use option fill colors."
+      },
+      {
+        "name": "Sequence_name",
+        "type": "Text,Ref",
+        "description": "Events with the same sequence share one timeline row within a group."
+      },
+      {
+        "name": "Event_name",
+        "type": "Text"
+      },
+      {
+        "name": "Event_start_date",
+        "type": "Date"
+      },
+      {
+        "name": "Event_end_date",
+        "type": "Date"
+      },
+      {
+        "name": "Event_status_color",
+        "type": "Choice",
+        "optional": true,
+        "description": "Optional status Choice — timeline bar colors follow each option's Grist fill color."
+      }
+    ],
+    "renderAfterReady": false,
+    "description": "Timeline grouped by Group_name and Sequence_name — bar colors from Event_status_color Choice styling.",
+    "authors": [
+      {
+        "name": "ArthurBlanchon",
+        "url": "https://github.com/ArthurBlanchon"
+      }
+    ],
+    "lastUpdatedAt": "2026-11-08T18:28:37.077Z",
+    "gristWidgetSdk": {
+      "schema": 1,
+      "channel": "release",
+      "version": "0.1.0",
+      "repository": "https://github.com/ArthurBlanchon/gantt-widget",
+      "license": "MIT",
+      "sdk": "0.3.27",
+      "createGristWidget": "0.3.32"
+    }
+  },
+  {
     "name": "Grist Widget Template",
     "widgetId": "@arthurblanchon/grist-widget-template",
     "url": "https://arthurblanchon.github.io/grist-widget-template/latest/",
@@ -29,6 +178,185 @@
       "channel": "release",
       "version": "0.3.32",
       "repository": "https://github.com/ArthurBlanchon/grist-widget-template",
+      "license": "MIT",
+      "sdk": "0.3.27",
+      "createGristWidget": "0.3.32"
+    }
+  },
+  {
+    "name": "News feed",
+    "widgetId": "@arthurblanchon/news-feed-widget",
+    "url": "https://arthurblanchon.github.io/news-feed-widget/latest/",
+    "published": true,
+    "accessLevel": "read table",
+    "columns": [
+      {
+        "name": "Query",
+        "type": "Text",
+        "description": "GDELT search query (required). Example: \"influence operations\" OR \"information warfare\"."
+      },
+      {
+        "name": "Mode",
+        "type": "Text",
+        "optional": true,
+        "description": "ArtList (default), TimelineVol, TimelineTone, TimelineLang, or TimelineSourceCountry."
+      },
+      {
+        "name": "MaxRecords",
+        "type": "Numeric",
+        "optional": true,
+        "description": "Maximum articles to fetch (1–250, default 75)."
+      },
+      {
+        "name": "Timespan",
+        "type": "Text",
+        "optional": true,
+        "description": "Relative window, e.g. \"7d\", \"4h\", \"3m\"."
+      },
+      {
+        "name": "StartDateTime",
+        "type": "Text,DateTime",
+        "optional": true,
+        "description": "Start bound as YYYYMMDDHHMMSS or a Grist datetime."
+      },
+      {
+        "name": "EndDateTime",
+        "type": "Text,DateTime",
+        "optional": true,
+        "description": "End bound as YYYYMMDDHHMMSS or a Grist datetime."
+      },
+      {
+        "name": "SourceLang",
+        "type": "Text",
+        "optional": true,
+        "description": "Source language, e.g. \"French\"."
+      },
+      {
+        "name": "SourceCountry",
+        "type": "Text",
+        "optional": true,
+        "description": "FIPS 2-letter source country code."
+      },
+      {
+        "name": "Theme",
+        "type": "Text",
+        "optional": true,
+        "description": "GKG theme filter."
+      },
+      {
+        "name": "Domain",
+        "type": "Text",
+        "optional": true,
+        "description": "Restrict to a news domain."
+      },
+      {
+        "name": "Display",
+        "type": "Text",
+        "optional": true,
+        "description": "View: \"shadcn\" (default, article cards) or \"html\" (embedded GDELT page with Google Translate on titles)."
+      }
+    ],
+    "renderAfterReady": false,
+    "description": "GDELT Doc 2.0 article list driven by mapped columns on the linked Grist row.",
+    "authors": [
+      {
+        "name": "ArthurBlanchon",
+        "url": "https://github.com/ArthurBlanchon"
+      }
+    ],
+    "lastUpdatedAt": "2026-11-08T18:28:22.204Z",
+    "gristWidgetSdk": {
+      "schema": 1,
+      "channel": "release",
+      "version": "0.1.0",
+      "repository": "https://github.com/ArthurBlanchon/news-feed-widget",
+      "license": "MIT",
+      "sdk": "0.3.27",
+      "createGristWidget": "0.3.32"
+    }
+  },
+  {
+    "name": "Upload with AI",
+    "widgetId": "@arthurblanchon/scan-with-ai",
+    "url": "https://arthurblanchon.github.io/scan-with-ai/latest/",
+    "published": true,
+    "accessLevel": "full",
+    "columns": [
+      {
+        "name": "File",
+        "type": "Attachments",
+        "title": "File",
+        "description": "One attachment per row (required)."
+      },
+      {
+        "name": "FileMetadata",
+        "type": "Text",
+        "title": "File metadata",
+        "description": "AI metadata as JSON string (maps to file_metadata)."
+      },
+      {
+        "name": "FileExtract",
+        "type": "Text",
+        "title": "File extract",
+        "description": "Raw extracted text from the file (PDF.js / plain text), not AI."
+      },
+      {
+        "name": "AiText",
+        "type": "Text",
+        "title": "AI text",
+        "description": "LLM-generated document text (maps to ai_text)."
+      }
+    ],
+    "renderAfterReady": false,
+    "description": "Upload a file per row, extract raw text, and scan with AI into metadata and AI text columns.",
+    "authors": [
+      {
+        "name": "ArthurBlanchon",
+        "url": "https://github.com/ArthurBlanchon"
+      }
+    ],
+    "lastUpdatedAt": "2026-11-08T18:28:25.051Z",
+    "gristWidgetSdk": {
+      "schema": 1,
+      "channel": "release",
+      "version": "0.1.0",
+      "repository": "https://github.com/ArthurBlanchon/scan-with-ai",
+      "license": "MIT",
+      "sdk": "0.3.27",
+      "createGristWidget": "0.3.32"
+    }
+  },
+  {
+    "name": "World map",
+    "widgetId": "@arthurblanchon/world-map",
+    "url": "https://arthurblanchon.github.io/world-map/latest/",
+    "published": true,
+    "accessLevel": "read table",
+    "columns": [
+      {
+        "name": "CountryISO",
+        "type": "Text",
+        "description": "ISO 3166-1 alpha-2 (US, FR) or alpha-3 (USA, FRA)"
+      },
+      {
+        "name": "Count",
+        "type": "Numeric"
+      }
+    ],
+    "renderAfterReady": false,
+    "description": "Choropleth of country counts from a table — map CountryISO (2 or 3 letters) and Count columns.",
+    "authors": [
+      {
+        "name": "ArthurBlanchon",
+        "url": "https://github.com/ArthurBlanchon"
+      }
+    ],
+    "lastUpdatedAt": "2026-11-08T18:28:38.178Z",
+    "gristWidgetSdk": {
+      "schema": 1,
+      "channel": "release",
+      "version": "0.1.0",
+      "repository": "https://github.com/ArthurBlanchon/world-map",
       "license": "MIT",
       "sdk": "0.3.27",
       "createGristWidget": "0.3.32"

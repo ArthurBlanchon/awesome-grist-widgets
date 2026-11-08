@@ -2,5 +2,35 @@
   {
     "repoUrl": "https://github.com/ArthurBlanchon/grist-widget-template",
     "widgetUrl": "https://arthurblanchon.github.io/grist-widget-template/latest/"
+  },
+  {
+    "repoUrl": "https://github.com/ArthurBlanchon/create-email-draft",
+    "widgetUrl": "https://arthurblanchon.github.io/create-email-draft/latest/",
+    "reference": true
+  },
+  {
+    "repoUrl": "https://github.com/ArthurBlanchon/news-feed-widget",
+    "widgetUrl": "https://arthurblanchon.github.io/news-feed-widget/latest/",
+    "reference": true
+  },
+  {
+    "repoUrl": "https://github.com/ArthurBlanchon/scan-with-ai",
+    "widgetUrl": "https://arthurblanchon.github.io/scan-with-ai/latest/",
+    "reference": true
+  },
+  {
+    "repoUrl": "https://github.com/ArthurBlanchon/gantt-widget",
+    "widgetUrl": "https://arthurblanchon.github.io/gantt-widget/latest/",
+    "reference": true
+  },
+  {
+    "repoUrl": "https://github.com/ArthurBlanchon/ask-ai-widget",
+    "widgetUrl": "https://arthurblanchon.github.io/ask-ai-widget/latest/",
+    "reference": true
+  },
+  {
+    "repoUrl": "https://github.com/ArthurBlanchon/world-map",
+    "widgetUrl": "https://arthurblanchon.github.io/world-map/latest/",
+    "reference": true
   }
 ]
