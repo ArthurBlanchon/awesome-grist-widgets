@@ -22,8 +22,8 @@ Widgets marked *reference* are checked by grist-widget-sdk against every SDK cha
 - [Gantt](https://github.com/ArthurBlanchon/gantt-widget) · *reference* — Timeline grouped by Group_name and Sequence_name — bar colors from Event_status_color Choice styling. ([install](https://arthurblanchon.github.io/gantt-widget/latest/))
   <br>Access: `full` · Columns: Group_name (Text,Ref,Choice), Sequence_name (Text,Ref), Event_name (Text), Event_start_date (Date), Event_end_date (Date), Event_status_color (Choice)? · v0.2.0 · MIT · grist-widget-sdk 0.4.0
 
-- [Grist Widget Template](https://github.com/ArthurBlanchon/grist-widget-template) — Edit the selected row's title and mark it done. ([install](https://arthurblanchon.github.io/grist-widget-template/latest/))
-  <br>Access: `full` · Columns: title (Text), done (Bool) · v0.4.0 · MIT · grist-widget-sdk 0.4.0
+- [Grist Widget Template](https://github.com/ArthurBlanchon/grist-widget-template) — Mark the selected task done. ([install](https://arthurblanchon.github.io/grist-widget-template/latest/))
+  <br>Access: `full` · Columns: Title (Text), Done (Bool) · v0.6.2 · MIT · grist-widget-sdk 0.6.2
 
 - [News feed](https://github.com/ArthurBlanchon/news-feed-widget) · *reference* — GDELT Doc 2.0 article list driven by mapped columns on the linked Grist row. ([install](https://arthurblanchon.github.io/news-feed-widget/latest/))
   <br>Access: `read table` · Columns: Query (Text), Mode (Text)?, MaxRecords (Numeric)?, Timespan (Text)?, StartDateTime (Text,DateTime)?, EndDateTime (Text,DateTime)?, SourceLang (Text)?, SourceCountry (Text)?, Theme (Text)?, Domain (Text)?, Display (Text)? · v0.2.0 · MIT · grist-widget-sdk 0.4.0

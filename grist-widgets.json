@@ -159,31 +159,32 @@
     "accessLevel": "full",
     "columns": [
       {
-        "name": "title",
+        "name": "Title",
         "type": "Text"
       },
       {
-        "name": "done",
+        "name": "Done",
         "type": "Bool"
       }
     ],
     "renderAfterReady": false,
-    "description": "Edit the selected row's title and mark it done.",
+    "description": "Mark the selected task done.",
     "authors": [
       {
         "name": "ArthurBlanchon",
         "url": "https://github.com/ArthurBlanchon"
       }
     ],
-    "lastUpdatedAt": "2026-11-10T11:43:06.637Z",
+    "lastUpdatedAt": "2026-11-14T06:30:33.378Z",
     "gristWidgetSdk": {
       "schema": 1,
       "channel": "release",
-      "version": "0.4.0",
+      "version": "0.6.2",
       "repository": "https://github.com/ArthurBlanchon/grist-widget-template",
       "license": "MIT",
-      "sdk": "0.4.0",
-      "createGristWidget": "0.4.0"
+      "sdk": "0.6.2",
+      "createGristWidget": "0.6.2",
+      "demo": "https://arthurblanchon.github.io/grist-widget-template/v0.6.2/demo/"
     }
   },
   {
