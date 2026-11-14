@@ -14,25 +14,25 @@ Widgets marked *reference* are checked by grist-widget-sdk against every SDK cha
 ## ArthurBlanchon
 
 - [Ask AI](https://github.com/ArthurBlanchon/ask-ai-widget) · *reference* — Ask AI questions about your Grist data. ([install](https://arthurblanchon.github.io/ask-ai-widget/latest/))
-  <br>Access: `read table` · Columns: no column mapping · v0.1.0 · MIT · grist-widget-sdk 0.3.27
+  <br>Access: `read table` · Columns: no column mapping · v0.2.0 · MIT · grist-widget-sdk 0.4.0
 
 - [Create Email Draft](https://github.com/ArthurBlanchon/create-email-draft) · *reference* — Compose an email draft from Grist row data and recipients. ([install](https://arthurblanchon.github.io/create-email-draft/latest/))
-  <br>Access: `full` · Columns: recipients (Text), replyToEmail (Text), subject (Text), content (Text)?, removedRecipients (Text)?, status (Text)?, statusDate (DateTime)? · v0.1.0 · MIT · grist-widget-sdk 0.3.27
+  <br>Access: `full` · Columns: recipients (Text), replyToEmail (Text), subject (Text), content (Text)?, removedRecipients (Text)?, status (Text)?, statusDate (DateTime)? · v0.2.0 · MIT · grist-widget-sdk 0.4.0
 
 - [Gantt](https://github.com/ArthurBlanchon/gantt-widget) · *reference* — Timeline grouped by Group_name and Sequence_name — bar colors from Event_status_color Choice styling. ([install](https://arthurblanchon.github.io/gantt-widget/latest/))
-  <br>Access: `full` · Columns: Group_name (Text,Ref,Choice), Sequence_name (Text,Ref), Event_name (Text), Event_start_date (Date), Event_end_date (Date), Event_status_color (Choice)? · v0.1.0 · MIT · grist-widget-sdk 0.3.27
+  <br>Access: `full` · Columns: Group_name (Text,Ref,Choice), Sequence_name (Text,Ref), Event_name (Text), Event_start_date (Date), Event_end_date (Date), Event_status_color (Choice)? · v0.2.0 · MIT · grist-widget-sdk 0.4.0
 
-- [Grist Widget Template](https://github.com/ArthurBlanchon/grist-widget-template) — Edit the selected row's title and mark it done. ([install](https://arthurblanchon.github.io/grist-widget-template/latest/))
-  <br>Access: `full` · Columns: title (Text), done (Bool) · v0.3.32 · MIT · grist-widget-sdk 0.3.27
+- [Grist Widget Template](https://github.com/ArthurBlanchon/grist-widget-template) — Mark the selected task done. ([install](https://arthurblanchon.github.io/grist-widget-template/latest/))
+  <br>Access: `full` · Columns: Title (Text), Done (Bool) · v0.6.2 · MIT · grist-widget-sdk 0.6.2
 
 - [News feed](https://github.com/ArthurBlanchon/news-feed-widget) · *reference* — GDELT Doc 2.0 article list driven by mapped columns on the linked Grist row. ([install](https://arthurblanchon.github.io/news-feed-widget/latest/))
-  <br>Access: `read table` · Columns: Query (Text), Mode (Text)?, MaxRecords (Numeric)?, Timespan (Text)?, StartDateTime (Text,DateTime)?, EndDateTime (Text,DateTime)?, SourceLang (Text)?, SourceCountry (Text)?, Theme (Text)?, Domain (Text)?, Display (Text)? · v0.1.0 · MIT · grist-widget-sdk 0.3.27
+  <br>Access: `read table` · Columns: Query (Text), Mode (Text)?, MaxRecords (Numeric)?, Timespan (Text)?, StartDateTime (Text,DateTime)?, EndDateTime (Text,DateTime)?, SourceLang (Text)?, SourceCountry (Text)?, Theme (Text)?, Domain (Text)?, Display (Text)? · v0.2.0 · MIT · grist-widget-sdk 0.4.0
 
 - [Upload with AI](https://github.com/ArthurBlanchon/scan-with-ai) · *reference* — Upload a file per row, extract raw text, and scan with AI into metadata and AI text columns. ([install](https://arthurblanchon.github.io/scan-with-ai/latest/))
-  <br>Access: `full` · Columns: File (Attachments), FileMetadata (Text), FileExtract (Text), AiText (Text) · v0.1.0 · MIT · grist-widget-sdk 0.3.27
+  <br>Access: `full` · Columns: File (Attachments), FileMetadata (Text), FileExtract (Text), AiText (Text) · v0.2.0 · MIT · grist-widget-sdk 0.4.0
 
 - [World map](https://github.com/ArthurBlanchon/world-map) · *reference* — Choropleth of country counts from a table — map CountryISO (2 or 3 letters) and Count columns. ([install](https://arthurblanchon.github.io/world-map/latest/))
-  <br>Access: `read table` · Columns: CountryISO (Text), Count (Numeric) · v0.1.0 · MIT · grist-widget-sdk 0.3.27
+  <br>Access: `read table` · Columns: CountryISO (Text), Count (Numeric) · v0.2.0 · MIT · grist-widget-sdk 0.4.0
 
 <!-- WIDGETS:END -->
 

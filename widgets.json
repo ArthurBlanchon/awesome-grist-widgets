@@ -8,7 +8,7 @@
     "manifest": {
       "name": "Ask AI",
       "widgetId": "@arthurblanchon/ask-ai-widget",
-      "url": "https://arthurblanchon.github.io/ask-ai-widget/v0.1.0/",
+      "url": "https://arthurblanchon.github.io/ask-ai-widget/v0.2.0/",
       "published": true,
       "accessLevel": "read table",
       "renderAfterReady": false,
@@ -19,15 +19,16 @@
           "url": "https://github.com/ArthurBlanchon"
         }
       ],
-      "lastUpdatedAt": "2026-11-08T18:28:50.569Z",
+      "lastUpdatedAt": "2026-11-12T16:41:21.824Z",
       "gristWidgetSdk": {
         "schema": 1,
         "channel": "release",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "repository": "https://github.com/ArthurBlanchon/ask-ai-widget",
         "license": "MIT",
-        "sdk": "0.3.27",
-        "createGristWidget": "0.3.32"
+        "sdk": "0.4.0",
+        "createGristWidget": "0.4.0",
+        "demo": "https://arthurblanchon.github.io/ask-ai-widget/v0.2.0/demo/"
       }
     }
   },
@@ -40,7 +41,7 @@
     "manifest": {
       "name": "Create Email Draft",
       "widgetId": "@arthurblanchon/create-email-draft",
-      "url": "https://arthurblanchon.github.io/create-email-draft/v0.1.0/",
+      "url": "https://arthurblanchon.github.io/create-email-draft/v0.2.0/",
       "published": true,
       "accessLevel": "full",
       "columns": [
@@ -95,15 +96,16 @@
           "url": "https://github.com/ArthurBlanchon"
         }
       ],
-      "lastUpdatedAt": "2026-11-08T18:28:23.544Z",
+      "lastUpdatedAt": "2026-11-12T16:41:00.184Z",
       "gristWidgetSdk": {
         "schema": 1,
         "channel": "release",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "repository": "https://github.com/ArthurBlanchon/create-email-draft",
         "license": "MIT",
-        "sdk": "0.3.27",
-        "createGristWidget": "0.3.32"
+        "sdk": "0.4.0",
+        "createGristWidget": "0.4.0",
+        "demo": "https://arthurblanchon.github.io/create-email-draft/v0.2.0/demo/"
       }
     }
   },
@@ -116,7 +118,7 @@
     "manifest": {
       "name": "Gantt",
       "widgetId": "@arthurblanchon/gantt-widget",
-      "url": "https://arthurblanchon.github.io/gantt-widget/v0.1.0/",
+      "url": "https://arthurblanchon.github.io/gantt-widget/v0.2.0/",
       "published": true,
       "accessLevel": "full",
       "columns": [
@@ -157,15 +159,16 @@
           "url": "https://github.com/ArthurBlanchon"
         }
       ],
-      "lastUpdatedAt": "2026-11-08T18:28:37.077Z",
+      "lastUpdatedAt": "2026-11-12T16:40:50.032Z",
       "gristWidgetSdk": {
         "schema": 1,
         "channel": "release",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "repository": "https://github.com/ArthurBlanchon/gantt-widget",
         "license": "MIT",
-        "sdk": "0.3.27",
-        "createGristWidget": "0.3.32"
+        "sdk": "0.4.0",
+        "createGristWidget": "0.4.0",
+        "demo": "https://arthurblanchon.github.io/gantt-widget/v0.2.0/demo/"
       }
     }
   },
@@ -173,40 +176,41 @@
     "name": "Grist Widget Template",
     "repoUrl": "https://github.com/ArthurBlanchon/grist-widget-template",
     "widgetUrl": "https://arthurblanchon.github.io/grist-widget-template/latest/",
-    "description": "Edit the selected row's title and mark it done.",
+    "description": "Mark the selected task done.",
     "manifest": {
       "name": "Grist Widget Template",
       "widgetId": "@arthurblanchon/grist-widget-template",
-      "url": "https://arthurblanchon.github.io/grist-widget-template/v0.3.32/",
+      "url": "https://arthurblanchon.github.io/grist-widget-template/v0.6.2/",
       "published": true,
       "accessLevel": "full",
       "columns": [
         {
-          "name": "title",
+          "name": "Title",
           "type": "Text"
         },
         {
-          "name": "done",
+          "name": "Done",
           "type": "Bool"
         }
       ],
       "renderAfterReady": false,
-      "description": "Edit the selected row's title and mark it done.",
+      "description": "Mark the selected task done.",
       "authors": [
         {
           "name": "ArthurBlanchon",
           "url": "https://github.com/ArthurBlanchon"
         }
       ],
-      "lastUpdatedAt": "2026-11-07T15:06:10.644Z",
+      "lastUpdatedAt": "2026-11-14T06:30:33.378Z",
       "gristWidgetSdk": {
         "schema": 1,
         "channel": "release",
-        "version": "0.3.32",
+        "version": "0.6.2",
         "repository": "https://github.com/ArthurBlanchon/grist-widget-template",
         "license": "MIT",
-        "sdk": "0.3.27",
-        "createGristWidget": "0.3.32"
+        "sdk": "0.6.2",
+        "createGristWidget": "0.6.2",
+        "demo": "https://arthurblanchon.github.io/grist-widget-template/v0.6.2/demo/"
       }
     }
   },
@@ -219,7 +223,7 @@
     "manifest": {
       "name": "News feed",
       "widgetId": "@arthurblanchon/news-feed-widget",
-      "url": "https://arthurblanchon.github.io/news-feed-widget/v0.1.0/",
+      "url": "https://arthurblanchon.github.io/news-feed-widget/v0.2.0/",
       "published": true,
       "accessLevel": "read table",
       "columns": [
@@ -297,15 +301,16 @@
           "url": "https://github.com/ArthurBlanchon"
         }
       ],
-      "lastUpdatedAt": "2026-11-08T18:28:22.204Z",
+      "lastUpdatedAt": "2026-11-12T16:40:48.846Z",
       "gristWidgetSdk": {
         "schema": 1,
         "channel": "release",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "repository": "https://github.com/ArthurBlanchon/news-feed-widget",
         "license": "MIT",
-        "sdk": "0.3.27",
-        "createGristWidget": "0.3.32"
+        "sdk": "0.4.0",
+        "createGristWidget": "0.4.0",
+        "demo": "https://arthurblanchon.github.io/news-feed-widget/v0.2.0/demo/"
       }
     }
   },
@@ -318,7 +323,7 @@
     "manifest": {
       "name": "Upload with AI",
       "widgetId": "@arthurblanchon/scan-with-ai",
-      "url": "https://arthurblanchon.github.io/scan-with-ai/v0.1.0/",
+      "url": "https://arthurblanchon.github.io/scan-with-ai/v0.2.0/",
       "published": true,
       "accessLevel": "full",
       "columns": [
@@ -355,15 +360,16 @@
           "url": "https://github.com/ArthurBlanchon"
         }
       ],
-      "lastUpdatedAt": "2026-11-08T18:28:25.051Z",
+      "lastUpdatedAt": "2026-11-12T16:41:10.796Z",
       "gristWidgetSdk": {
         "schema": 1,
         "channel": "release",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "repository": "https://github.com/ArthurBlanchon/scan-with-ai",
         "license": "MIT",
-        "sdk": "0.3.27",
-        "createGristWidget": "0.3.32"
+        "sdk": "0.4.0",
+        "createGristWidget": "0.4.0",
+        "demo": "https://arthurblanchon.github.io/scan-with-ai/v0.2.0/demo/"
       }
     }
   },
@@ -376,7 +382,7 @@
     "manifest": {
       "name": "World map",
       "widgetId": "@arthurblanchon/world-map",
-      "url": "https://arthurblanchon.github.io/world-map/v0.1.0/",
+      "url": "https://arthurblanchon.github.io/world-map/v0.2.0/",
       "published": true,
       "accessLevel": "read table",
       "columns": [
@@ -398,15 +404,16 @@
           "url": "https://github.com/ArthurBlanchon"
         }
       ],
-      "lastUpdatedAt": "2026-11-08T18:28:38.178Z",
+      "lastUpdatedAt": "2026-11-12T16:40:48.521Z",
       "gristWidgetSdk": {
         "schema": 1,
         "channel": "release",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "repository": "https://github.com/ArthurBlanchon/world-map",
         "license": "MIT",
-        "sdk": "0.3.27",
-        "createGristWidget": "0.3.32"
+        "sdk": "0.4.0",
+        "createGristWidget": "0.4.0",
+        "demo": "https://arthurblanchon.github.io/world-map/v0.2.0/demo/"
       }
     }
   }
